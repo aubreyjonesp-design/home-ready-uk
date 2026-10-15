@@ -29,4 +29,4 @@ All three link to the same free calculator, plan and guides, and have the same s
 **Recommendation:** Buttondown for sign-ups (no script, built-in double opt-in, 100 free is enough for a 6-week test; move to MailerLite if we pass it) and GoatCounter for visits. Both are placeholders in the code (`FORM_ACTION` and `GOAT` in build.py) and do nothing until switched on.
 
 ## Privacy
-Draft at `/privacy.html`, with placeholders for controller name, contact, address and retention periods. The ICO data protection fee may apply to a controller that processes personal data; Phil should check at ico.org.uk before going live (not checked here).
+Draft at `/privacy.html`, now filled in (controller Philip Aubrey-Jones, contact by email). The ICO data protection fee may apply to a controller that processes personal data; Phil should check at ico.org.uk before going live (not checked here).
