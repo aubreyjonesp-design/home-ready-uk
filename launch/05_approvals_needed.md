@@ -1,5 +1,5 @@
 # Approvals needed from Phil (nothing done yet)
-1. **Controller details** for the privacy notice: name, contact email, postal address, retention periods. Also check whether the ICO data protection fee applies.
+1. ~~Controller details~~ DONE (Philip Aubrey-Jones, homereadyuk@mail.grokbot.com, contact by email only). **Still to check: whether the ICO data protection fee applies (ico.org.uk). Internal note only, not in the public text.**
 2. **Create accounts** (free tiers): Buttondown (sign-ups) and GoatCounter (visits). Allow the site to load the GoatCounter script.
 3. **Create the Google Form** from `02_survey_google_form_spec.md` under his Google account; decide on the 2 optional demographic questions.
 4. **Create the public GitHub repo** `aubreyjonesp-design/home-ready-uk` and **publish** to GitHub Pages.

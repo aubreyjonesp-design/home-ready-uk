@@ -261,7 +261,7 @@ page("about.html","About and trust",f'''
 <li>We never make up figures. Survey numbers come only from the published report, with a link.</li>
 <li>We aim to recheck every page at least every 6 months, and soon after official advice changes.</li>
 <li>We write in our own words. Where we use GOV.UK text, it is Crown copyright, used under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</li>
-<li>Spotted a mistake? <!-- TODO: add contact address before launch --> A contact address will be added before launch.</li>
+<li>Spotted a mistake? Email <a href="mailto:homereadyuk@mail.grokbot.com">homereadyuk@mail.grokbot.com</a>.</li>
 </ul>
 <h2>Privacy</h2>
 <p>This site uses no cookies, no trackers, no analytics and no outside fonts. The calculator runs in your browser and saves nothing. We never ask for health details.</p>
@@ -320,26 +320,25 @@ for k,(h,sub) in V.items():
 # ---------- PRIVACY NOTICE (DRAFT) ----------
 page("privacy.html","Privacy notice",f'''
 <h1>Privacy notice</h1>
-<p class="todo">DRAFT. Not yet reviewed. Replace every [PLACEHOLDER] before publishing.</p>
 <h2>Who we are</h2>
-<p>Home Ready UK is run by [CONTROLLER NAME] ("we"), the data controller. Contact: [CONTACT EMAIL], [POSTAL ADDRESS].</p>
+<p>Home Ready UK is run by Philip Aubrey-Jones ("we"), who is the data controller. You can contact us by email at <a href="mailto:homereadyuk@mail.grokbot.com">homereadyuk@mail.grokbot.com</a>. We deal with all privacy questions by email.</p>
 <h2>What we collect and why</h2>
 <table><thead><tr><th scope="col">What</th><th scope="col">Why</th><th scope="col">Legal basis (UK GDPR)</th><th scope="col">How long</th></tr></thead><tbody>
-<tr><td>Your email address, the date you signed up, and which page you signed up on</td><td>To send occasional reminders and updates you asked for</td><td>Consent (Article 6(1)(a))</td><td>Until you unsubscribe, or [12] months after our last email if we stop the service</td></tr>
-<tr><td>Survey answers (if you take our survey). We do not ask your name or health details.</td><td>To understand what would help households</td><td>Consent</td><td>Deleted [6] months after the survey closes; only summary figures kept</td></tr>
-<tr><td>Anonymous visit counts (page, referrer, browser type, country). No cookies, no IP address stored.</td><td>To see which pages are useful</td><td>Legitimate interests (Article 6(1)(f))</td><td>[24] months</td></tr>
+<tr><td>Your email address, the date you signed up, and which page you signed up on</td><td>To send occasional reminders and updates you asked for</td><td>Consent (Article 6(1)(a))</td><td>Until you unsubscribe. If we stop the service, we delete the list within 3 months.</td></tr>
+<tr><td>Survey answers (if you take our survey). We do not ask your name or health details.</td><td>To understand what would help households</td><td>Consent</td><td>Deleted 6 months after the survey closes. Only summary figures are kept.</td></tr>
+<tr><td>Visit counts only (page, referring site, browser type, country). No cookies, no IP addresses, nothing that identifies you.</td><td>To see which pages are useful</td><td>Legitimate interests (Article 6(1)(f))</td><td>Kept only as totals, which cannot identify anyone</td></tr>
 </tbody></table>
 <p>The calculator runs only in your browser. What you type is never sent to us or stored.</p>
 <h2>Who helps us</h2>
 <ul class="tick">
-<li>[EMAIL PROVIDER, e.g. Buttondown] stores email addresses and sends our emails. It may store data outside the UK under safeguards approved for UK transfers.</li>
-<li>[ANALYTICS, e.g. GoatCounter] counts visits without cookies.</li>
-<li>[SURVEY TOOL, e.g. Google Forms] collects survey answers.</li>
-<li>[HOSTING, e.g. GitHub Pages] hosts this website and may keep short-term server logs.</li>
+<li>Buttondown stores email addresses and sends our emails. It is based in the USA, so your email address is stored outside the UK, under safeguards approved for UK data transfers.</li>
+<li>GoatCounter counts visits without cookies and does not store IP addresses.</li>
+<li>Google Forms collects survey answers. We do not collect names or email addresses in the survey.</li>
+<li>GitHub Pages hosts this website. GitHub may keep short-term technical logs to run and protect the service.</li>
 </ul>
 <p>We never sell your data or use it for advertising.</p>
 <h2>Your rights</h2>
-<p>You can ask to see, correct or delete your data, or withdraw consent at any time (every email has an unsubscribe link). Contact [CONTACT EMAIL]. If you are unhappy, you can complain to the <a href="https://ico.org.uk/make-a-complaint/">Information Commissioner's Office (ICO)</a>.</p>
-<p class="meta">Draft dated <time datetime="2026-10-15">{CHECKED}</time>.</p>
-''',"How Home Ready UK uses your information. Draft.")
+<p>You can ask to see, correct or delete your data, or withdraw consent at any time (every email has an unsubscribe link). Email <a href="mailto:homereadyuk@mail.grokbot.com">homereadyuk@mail.grokbot.com</a>. We will reply within one month. If you are unhappy, you can complain to the <a href="https://ico.org.uk/make-a-complaint/">Information Commissioner's Office (ICO)</a>.</p>
+<p class="meta">Last updated: <time datetime="2026-10-15">{CHECKED}</time>.</p>
+''',"How Home Ready UK uses your information.")
 print("variants built")
