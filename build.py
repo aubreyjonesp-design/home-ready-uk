@@ -1,6 +1,17 @@
 # Generates the static pages. Run: python3 build.py
 import os
 CHECKED="15 October 2026"
+FORM_ACTION="https://buttondown.com/api/emails/embed-subscribe/homereadyuk"  # Buttondown, double opt-in
+GOAT='<script data-goatcounter="https://homereadyuk.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'  # cookieless, no IPs stored
+def signup(tag,uid,r):
+    return f'''<form class="card" action="{FORM_ACTION}" method="post">
+<input type="hidden" name="embed" value="1">
+<input type="hidden" name="tag" value="{tag}">
+<label for="{uid}">Email address <span class="hint">Only used for reminders. Unsubscribe any time.</span></label>
+<input type="email" id="{uid}" name="email" autocomplete="email" required>
+<p class="hint">By signing up you agree to us emailing you as described in our <a href="{r}privacy.html">privacy notice</a>. We will send you a confirmation email first. Please click the link in it to finish signing up.</p>
+<p><button type="submit">Notify me</button></p>
+</form>'''
 PLAN_DOCX="https://prepare.campaign.gov.uk/wp-content/uploads/sites/196/2025/09/HMG-Household_Emergency_Plan_WORD-1.docx"
 P="https://prepare.campaign.gov.uk"
 def page(path,title,body,desc,bodyclass=""):
@@ -28,9 +39,10 @@ def page(path,title,body,desc,bodyclass=""):
 </div></main>
 <footer class="site"><div class="wrap">
 <p><strong>In danger now? Call 999.</strong> Power cut: call 105 (England, Scotland, Wales) or 03457 643643 (Northern Ireland). Smell gas: call 0800 111 999 (Great Britain).</p>
-<p>Home Ready UK is independent. It is not part of the UK Government, the British Red Cross or any energy or water company. We follow the official advice at <a href="{P}/">GOV.UK Prepare</a>. No cookies, no trackers, no adverts.</p>
+<p>Home Ready UK is independent. It is not part of the UK Government, the British Red Cross or any energy or water company. We follow the official advice at <a href="{P}/">GOV.UK Prepare</a>. No cookies, no adverts. We count visits without identifying anyone.</p>
 <p><a href="{r}about.html">About, editorial and affiliate policy</a> · <a href="{r}privacy.html">Privacy</a></p>
 </div></footer>
+{GOAT}
 </body>
 </html>
 '''
@@ -62,13 +74,7 @@ page("index.html","Calm, simple preparation for UK homes",f'''
 
 <h2 id="notify">Get a reminder now and then</h2>
 <p>We plan to send a short, calm reminder a few times a year, such as “check your torch batteries before winter”. No spam.</p>
-<form class="card" action="#" method="post" onsubmit="return false;" aria-describedby="todo-note">
-<!-- TODO: sign-up does nothing yet. Before going live: choose a provider, double opt-in, privacy notice, Phil's approval to publish. -->
-<p id="todo-note" class="todo">Not working yet. This sign-up is a placeholder (TODO) and does not send or store anything.</p>
-<label for="email">Email address <span class="hint">We will only use it for reminders.</span></label>
-<input type="email" id="email" name="email" autocomplete="email">
-<p><button type="submit" disabled aria-disabled="true">Notify me (coming soon)</button></p>
-</form>
+{signup("home","email","")}
 
 <h2>Sources</h2>
 <ol class="sources"><li id="s1">Cabinet Office, <a href="https://www.gov.uk/government/statistics/uk-public-survey-of-risk-perception-resilience-and-preparedness-2026/uk-public-survey-of-risk-perception-resilience-and-preparedness-2026-headline-findings-html">UK Public Survey of Risk Perception, Resilience and Preparedness 2026: headline findings</a> (online panel, 10,791 UK adults, published 19 August 2026). Water figure based on 3 litres per person per day.</li></ol>
@@ -264,7 +270,7 @@ page("about.html","About and trust",f'''
 <li>Spotted a mistake? Email <a href="mailto:homereadyuk@mail.grokbot.com">homereadyuk@mail.grokbot.com</a>.</li>
 </ul>
 <h2>Privacy</h2>
-<p>This site uses no cookies, no trackers, no analytics and no outside fonts. The calculator runs in your browser and saves nothing. We never ask for health details.</p>
+<p>This site uses no cookies, no advertising trackers and no outside fonts. We count visits with GoatCounter, which uses no cookies and stores no IP addresses. The calculator runs in your browser and saves nothing. We never ask for health details.</p>
 <h2>Affiliate and advertising policy</h2>
 <p>We have <strong>no affiliate links and no adverts</strong> right now. If we ever add them, each one will be clearly labelled <strong>“Ad”</strong>, and they will never appear inside the core safety advice. Following our advice never requires buying anything from us.</p>
 <p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time>.</p>
@@ -273,10 +279,6 @@ print("built")
 
 # ---------- SMOKE-TEST LANDING VARIANTS (/a /b /c) ----------
 # TODO before publishing (needs Phil's approval):
-#  1. Replace FORM_ACTION with the Buttondown embed URL once an account exists.
-#  2. Uncomment the GoatCounter line (cookieless, no IP stored) once a site code exists.
-FORM_ACTION="#"  # TODO e.g. https://buttondown.com/api/emails/embed-subscribe/<username>
-GOAT='<!-- TODO analytics (cookieless): <script data-goatcounter="https://<code>.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script> -->'
 V={
  "a":("Be ready for a power cut in 20 minutes",
       "A short, free checklist that follows the official UK advice. Find your torch, write down 105, and you are most of the way there."),
@@ -300,19 +302,10 @@ for k,(h,sub) in V.items():
 </ul>
 
 <h2 id="notify">Get a calm reminder a few times a year</h2>
-<form class="card" action="{FORM_ACTION}" method="post" onsubmit="return false;">
-<!-- TODO: not connected. Enable only after Phil approves the email provider and publishing. -->
-<p class="todo">Not working yet (TODO). This form does not send or store anything.</p>
-<input type="hidden" name="tag" value="variant-{k}">
-<label for="email-{k}">Email address <span class="hint">Only used for reminders. Unsubscribe any time.</span></label>
-<input type="email" id="email-{k}" name="email" autocomplete="email">
-<p class="hint">We will email you once to confirm. See our <a href="../privacy.html">privacy notice</a>.</p>
-<p><button type="submit" disabled aria-disabled="true">Notify me</button></p>
-</form>
+{signup("variant-"+k,"email-"+k,"../")}
 
 <h2>What might come later</h2>
 <p>We are testing whether people want more, such as seasonal reminders or a phone app that works without signal. <strong>None of this exists yet</strong>, and we have not set any prices. If we ever charge for anything, the core advice and calculator will stay free.</p>
-{GOAT}
 ''',sub)
     s=open(f"{k}/index.html").read().replace('<meta name="description"','<meta name="robots" content="noindex">\n<meta name="description"')
     open(f"{k}/index.html","w").write(s)
@@ -331,7 +324,7 @@ page("privacy.html","Privacy notice",f'''
 <p>The calculator runs only in your browser. What you type is never sent to us or stored.</p>
 <h2>Who helps us</h2>
 <ul class="tick">
-<li>Buttondown stores email addresses and sends our emails. It is based in the USA, so your email address is stored outside the UK, under safeguards approved for UK data transfers.</li>
+<li>Buttondown stores email addresses and sends our emails. When you sign up, you go to a Buttondown page to confirm. It is based in the USA, so your email address is stored outside the UK, under safeguards approved for UK data transfers.</li>
 <li>GoatCounter counts visits without cookies and does not store IP addresses.</li>
 <li>Google Forms collects survey answers. We do not collect names or email addresses in the survey.</li>
 <li>GitHub Pages hosts this website. GitHub may keep short-term technical logs to run and protect the service.</li>
