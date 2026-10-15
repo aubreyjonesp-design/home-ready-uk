@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3-day kit and water calculator | Home Ready UK</title>
+<meta name="description" content="Work out how much water and what to keep for a 3-day emergency kit, using GOV.UK figures. Runs in your browser and saves nothing.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site"><div class="wrap">
+<a class="brand" href="index.html">Home Ready UK</a>
+<nav aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="calculator.html" aria-current="page">Kit calculator</a></li><li><a href="plan.html">Household plan</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="about.html">About and trust</a></li></ul></nav>
+</div>
+<p class="indep"><strong>Independent. Not part of the UK Government.</strong> We follow the official advice at <a href="https://prepare.campaign.gov.uk/">GOV.UK Prepare</a>.</p></header>
+<main id="main" tabindex="-1"><div class="wrap">
+
+<h1>3-day kit and water calculator</h1>
+<p class="lead">Tell us who lives in your home. We will make a checklist and work out how much bottled water to keep.</p>
+<p class="note">This runs only in your browser. Nothing you type is saved or sent anywhere. It works without internet once the page has loaded.</p>
+
+<form id="calc" class="noprint" novalidate>
+<fieldset><legend>Who lives with you?</legend>
+<label for="adults">Adults and teenagers</label><input type="number" id="adults" min="0" max="20" value="2" inputmode="numeric">
+<label for="children">Children (about 1 to 12 years)</label><input type="number" id="children" min="0" max="20" value="0" inputmode="numeric">
+<label for="babies">Babies (under 1)</label><input type="number" id="babies" min="0" max="10" value="0" inputmode="numeric">
+<label for="dogs">Dogs</label><input type="number" id="dogs" min="0" max="10" value="0" inputmode="numeric">
+<label for="cats">Cats and other small pets</label><input type="number" id="cats" min="0" max="20" value="0" inputmode="numeric">
+<label for="days">How many days? <span class="hint">GOV.UK talks about an emergency lasting “a few days”. 3 is a good start.</span></label>
+<select id="days"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>7</option></select>
+</fieldset>
+<fieldset><legend>Anything extra to plan for? (tick any)</legend>
+<label class="check"><input type="checkbox" id="meds"> Someone takes regular medicine</label>
+<label class="check"><input type="checkbox" id="power"> Someone uses medical equipment that needs power</label>
+<label class="check"><input type="checkbox" id="waterdev"> Someone uses medical equipment that needs water</label>
+<label class="check"><input type="checkbox" id="mobility"> Someone has limited mobility or uses a wheelchair</label>
+<label class="check"><input type="checkbox" id="sensory"> Someone is deaf, has a hearing loss, or is blind or partially sighted</label>
+<label class="check"><input type="checkbox" id="cognitive"> Someone has dementia, a learning disability or finds change hard</label>
+<label class="check"><input type="checkbox" id="older"> Someone is older or lives alone</label>
+<label class="check"><input type="checkbox" id="assist"> We have an assistance dog</label>
+</fieldset>
+<p><button type="submit">Make my checklist</button></p>
+</form>
+
+<div id="result" aria-live="polite" tabindex="-1"></div>
+
+<h2>Where the water figures come from</h2>
+<p>GOV.UK Prepare says there is no standard figure, because emergencies vary and people use different amounts. It says the World Health Organization recommends <strong>at least 2.5 to 3 litres of drinking water per person per day</strong> for survival, and that <strong>10 litres per person per day</strong> is more comfortable, as it also covers basic cooking and washing. You may need extra water for baby formula, medical devices and pets.<sup><a href="#sources">[1]</a></sup></p>
+<p>We use 3 litres a day for the minimum. For babies we count a person’s share and remind you to keep ready-to-feed formula. Pet amounts are a rough guide only (about 1 litre a day per dog, 0.25 litres per cat or small pet); ask your vet if unsure. GOV.UK suggests buying sealed bottled water rather than filling your own containers.<sup><a href="#sources">[2]</a></sup></p>
+<p>Build it up over time. Buy the food and drink you normally use, and eat the oldest first, so nothing is wasted.</p>
+<h2 id="sources">Sources</h2>
+<ul class="sources"><li><a href="https://prepare.campaign.gov.uk/get-prepared-for-emergencies/">1. GOV.UK Prepare: Get prepared for emergencies (emergency kit and water)</a></li><li><a href="https://prepare.campaign.gov.uk/be-informed-about-hazards/water-supply-interruptions-or-outages/">2. GOV.UK Prepare: Water supply interruptions or outages</a></li><li><a href="https://prepare.campaign.gov.uk/get-prepared-for-emergencies/advice-for-disabled-persons-and-carers/">3. GOV.UK Prepare: Advice for disabled people and carers</a></li><li><a href="https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit">4. British Red Cross: Prepare an emergency kit</a></li></ul>
+<p class="meta">Last checked: <time datetime="2026-10-15">15 October 2026</time>. Some text on this page is adapted from GOV.UK Prepare, Crown copyright, used under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>.</p>
+<script src="assets/calc.js"></script>
+
+</div></main>
+<footer class="site"><div class="wrap">
+<p><strong>In danger now? Call 999.</strong> Power cut: call 105 (England, Scotland, Wales) or 03457 643643 (Northern Ireland). Smell gas: call 0800 111 999 (Great Britain).</p>
+<p>Home Ready UK is independent. It is not part of the UK Government, the British Red Cross or any energy or water company. We follow the official advice at <a href="https://prepare.campaign.gov.uk/">GOV.UK Prepare</a>. No cookies, no trackers, no adverts.</p>
+<p><a href="about.html">About, editorial and affiliate policy</a> · <a href="privacy.html">Privacy</a></p>
+</div></footer>
+</body>
+</html>
