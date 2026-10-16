@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aubreyjonesp-design.github.io/home-ready-uk/sitemap.xml
