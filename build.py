@@ -26,6 +26,7 @@ def page(path,title,body,desc,bodyclass=""):
     if path=="index.html": j={"@context":"https://schema.org","@type":"WebSite","name":"Home Ready UK","url":SITE,"inLanguage":"en-GB","description":desc}
     elif art: j={"@context":"https://schema.org","@type":"Article","headline":title,"description":desc,"url":url,"inLanguage":"en-GB","dateModified":CHECKED_ISO,"author":{"@type":"Organization","name":"Home Ready UK"},"publisher":{"@type":"Organization","name":"Home Ready UK"},"mainEntityOfPage":url}
     else: j=None
+    gsv='<meta name="google-site-verification" content="sUd5YCAQW63Z3yPZjdy5cawJS1ivCue-UsI5S-QF3aw" />\n' if path=="index.html" else ""
     ld=f'<script type="application/ld+json">{json.dumps(j,ensure_ascii=False)}</script>\n' if j else ""
     if not path.startswith(("a/","b/","c/")): PAGES.append(url)
     links="".join(f'<li><a href="{r}{h}"{" aria-current=\"page\"" if h==path else ""}>{t}</a></li>' for h,t in nav)
@@ -37,7 +38,7 @@ def page(path,title,body,desc,bodyclass=""):
 <title>{title} | Home Ready UK</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{url}">
-<meta property="og:type" content="{'article' if art else 'website'}">
+{gsv}<meta property="og:type" content="{'article' if art else 'website'}">
 <meta property="og:site_name" content="Home Ready UK">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="{title} | Home Ready UK">
