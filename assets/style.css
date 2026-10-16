@@ -68,3 +68,4 @@ body.large h1{font-size:2.6rem}
 .indep{margin:0;background:var(--soft);border-bottom:2px solid var(--accent);padding:.5rem 1rem;text-align:center;font-size:1rem}
 @media print{.indep{display:block;border:0;background:#fff;font-size:9pt;padding:0 0 4pt;text-align:left}}
 header.site .indep,header.site .indep a{color:var(--fg)}
+@media print{body:not(.large){line-height:1.25} body:not(.large) th,body:not(.large) td{padding:2pt 5pt} body:not(.large) table{margin:2pt 0}}

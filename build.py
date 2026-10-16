@@ -1,6 +1,9 @@
 # Generates the static pages. Run: python3 build.py
 import os
 CHECKED="15 October 2026"
+CHECKED_ISO="2026-10-15"
+SITE="https://aubreyjonesp-design.github.io/home-ready-uk/"
+PAGES=[]
 FORM_ACTION="https://buttondown.com/api/emails/embed-subscribe/homereadyuk"  # Buttondown, double opt-in
 GOAT='<script data-goatcounter="https://homereadyuk.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'  # cookieless, no IPs stored
 def signup(tag,uid,r):
@@ -17,6 +20,14 @@ P="https://prepare.campaign.gov.uk"
 def page(path,title,body,desc,bodyclass=""):
     depth=path.count("/"); r="../"*depth
     nav=[("index.html","Home"),("calculator.html","Kit calculator"),("plan.html","Household plan"),("guides/index.html","Guides"),("about.html","About and trust")]
+    url=SITE+("" if path=="index.html" else path.replace("index.html",""))
+    art=path.startswith("guides/") and path!="guides/index.html"
+    import json
+    if path=="index.html": j={"@context":"https://schema.org","@type":"WebSite","name":"Home Ready UK","url":SITE,"inLanguage":"en-GB","description":desc}
+    elif art: j={"@context":"https://schema.org","@type":"Article","headline":title,"description":desc,"url":url,"inLanguage":"en-GB","dateModified":CHECKED_ISO,"author":{"@type":"Organization","name":"Home Ready UK"},"publisher":{"@type":"Organization","name":"Home Ready UK"},"mainEntityOfPage":url}
+    else: j=None
+    ld=f'<script type="application/ld+json">{json.dumps(j,ensure_ascii=False)}</script>\n' if j else ""
+    if not path.startswith(("a/","b/","c/")): PAGES.append(url)
     links="".join(f'<li><a href="{r}{h}"{" aria-current=\"page\"" if h==path else ""}>{t}</a></li>' for h,t in nav)
     html=f'''<!DOCTYPE html>
 <html lang="en-GB">
@@ -25,7 +36,14 @@ def page(path,title,body,desc,bodyclass=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} | Home Ready UK</title>
 <meta name="description" content="{desc}">
-<link rel="stylesheet" href="{r}assets/style.css">
+<link rel="canonical" href="{url}">
+<meta property="og:type" content="{'article' if art else 'website'}">
+<meta property="og:site_name" content="Home Ready UK">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{title} | Home Ready UK">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{url}">
+{ld}<link rel="stylesheet" href="{r}assets/style.css">
 </head>
 <body{f' class="{bodyclass}"' if bodyclass else ''}>
 <a class="skip" href="#main">Skip to main content</a>
@@ -133,21 +151,26 @@ def plan(path,large):
 <tr><th scope="row">Emergency</th><td>999</td></tr>
 <tr><th scope="row">Power cut</th><td>105 (England, Scotland, Wales) / 03457 643643 (N. Ireland)</td></tr>
 <tr><th scope="row">Smell gas</th><td>0800 111 999 (Great Britain)</td></tr>
+<tr><th scope="row">Flooding</th><td>Floodline 0345 988 1188 (England, Scotland, Wales) / Flooding Incident Line 0300 2000 100 (N. Ireland)</td></tr>
+<tr><th scope="row">NHS advice</th><td>111</td></tr>
 {rows(["Water company","Energy supplier","Family or friend","Neighbour","GP / pharmacy","Home insurance (policy no.)"])}
 </tbody></table>
 <table><caption class="meta">Our home</caption><tbody>
 {rows(["Water stop tap is","Gas shut-off is","Fuse box (consumer unit) is","Torch, radio and kit are","Meeting place if we can’t get home","Radio station and frequency","On the Priority Services Register? (who / which company)"])}
 </tbody></table>
 <table><caption class="meta">People who need extra help</caption><tbody>
-{rows(["Name and what help they need","Regular medicines (name, dose)","Medical equipment and back-up battery"])}
+{rows(["Name and what help they need","Regular medicines (name, dose)","Allergies (who, what)","Medical equipment and back-up battery"])}
+</tbody></table>
+<table><caption class="meta">Supplies and seasonal checks</caption><tbody>
+{rows(["First aid kit and medicines list are kept","Food store is kept (next date check)","Water butt (not for drinking) is","Flood warnings signed up? Grab bag is","Cold weather: who we check on"])}
 </tbody></table>
 <p class="meta">Check this plan every 6 months. Last checked by us: <time datetime="2026-10-15">{CHECKED}</time>. Based on <a href="{P}/get-prepared-for-emergencies/">GOV.UK Prepare</a> (Crown copyright, Open Government Licence v3.0). Home Ready UK is independent of government.</p>
-''',"A printable one-page household emergency plan, with a large-print version, based on GOV.UK advice.","large" if large else "")
+''',"A printable "+("large-print " if large else "")+"household emergency plan for numbers, medicines, first aid, food, flooding and cold weather, based on GOV.UK advice.","large" if large else "")
 plan("plan.html",False); plan("plan-large-print.html",True)
 
 # ---------- GUIDES ----------
-G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely"),("first-aid","First aid at home")]
-page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food, rainwater and first aid.")
+G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely"),("first-aid","First aid at home"),("food-storage","Storing food for emergencies"),("flooding","Flooding: before, during and after"),("cold-weather","Cold weather: staying warm and well")]
+page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food, rainwater, first aid, food storage, flooding and cold weather.")
 
 RHSW="https://www.rhs.org.uk/garden-jobs/water-collecting-storing-and-using"
 page("guides/grow-your-own.html","Grow some of your own food",f'''
@@ -383,6 +406,181 @@ page("guides/first-aid.html","First aid at home",f'''
 {sources([("NHS: Burns and scalds","https://www.nhs.uk/conditions/burns-and-scalds/"),("NHS: Cuts and grazes","https://www.nhs.uk/conditions/cuts-and-grazes/"),("NHS: Hypothermia","https://www.nhs.uk/conditions/hypothermia/"),("NHS: Carbon monoxide poisoning","https://www.nhs.uk/conditions/carbon-monoxide-poisoning/"),("NHS: Sprains and strains","https://www.nhs.uk/conditions/sprains-and-strains/"),("NHS: When to call 999","https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-call-999/"),("NHS: When to use 111","https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-use-111/"),("NHS: How pharmacies can help","https://www.nhs.uk/nhs-services/pharmacies/how-pharmacies-can-help/"),("NHS Black Country ICB: Keep a well-stocked medicine cabinet at home","https://blackcountry.icb.nhs.uk/your-health/find-right-service-you/self-care/keep-well-stocked-medicine-cabinet-home"),("St John Ambulance: What to put in a first aid kit","https://shop.sja.org.uk/pages/what-to-put-in-a-first-aid-kit"),("HSE: What to put in your first aid kit (checking expiry dates)","https://www.hse.gov.uk/simple-health-safety/firstaid/what-to-put-in-your-first-aid-kit.htm"),("St John Ambulance: First aid advice","https://www.sja.org.uk/first-aid-advice/"),("St John Ambulance: Primary survey (DR ABC)","https://www.sja.org.uk/first-aid-advice/primary-survey/"),("St John Ambulance: How to do CPR","https://www.sja.org.uk/first-aid-advice/cpr/"),("St John Ambulance: Recovery position","https://www.sja.org.uk/first-aid-advice/recovery-position/"),("St John Ambulance: Choking","https://www.sja.org.uk/first-aid-advice/choking/"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit"),("British Red Cross: Learn first aid","https://www.redcross.org.uk/first-aid/learn-first-aid"),("Relay UK: Contact 999 using Relay UK","https://www.relayuk.bt.com/how-to-use-relay-uk/contact-999-using-relay-uk.html"),("999 BSL emergency video relay","https://999bsl.co.uk/")])}
 ''',"First aid at home in the UK: what to keep in your kit, basic steps for burns, bleeding, cold, carbon monoxide, choking and CPR, and when to call 999 or 111.")
 
+FSAPC="https://www.gov.uk/government/publications/food-safety-in-a-power-cut-advice-for-consumers/food-safety-in-a-power-cut-advice-for-consumers"
+FFC="https://www.gov.uk/government/publications/home-food-fact-checker/home-food-fact-checker"
+page("guides/food-storage.html","Storing food for emergencies",f'''
+<h1>Storing food for emergencies</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">A small store of food you already eat makes a power cut, water cut or snowed-in week much easier. Build it up slowly and use it, so nothing goes to waste.</p>
+<div class="note"><p>GOV.UK Prepare does not give a set amount of food to keep. It says how much you need depends on your own circumstances. It suggests food that does not need cooking, such as ready-to-eat tinned meat, fruit or vegetables, plus a tin opener.</p></div>
+
+<h2>Keep a rotation store</h2>
+<ul class="tick">
+<li>Buy a few extra of the long-life foods you normally eat. Put new ones at the back and use the oldest first.</li>
+<li>Check dates when you buy and when you put things away. The Food Standards Agency (FSA) says a <strong>use-by</strong> date is about safety, and a <strong>best before</strong> date is about quality. Food can be eaten after its best before date, but may not taste as good.</li>
+<li>The British Red Cross suggests keeping 3 days’ supply of bottled water and long-life, ready-to-eat food, with a tin opener. Use our <a href="../calculator.html">kit calculator</a> for water amounts.</li>
+</ul>
+
+<h2>Tins and dried food</h2>
+<ul class="tick">
+<li>Tins are useful because, the FSA says, many tinned foods are safe to eat without heating. Check the label, as it depends on the product.</li>
+<li>A shallow dent is usually fine. The FSA says do not eat food from a deeply dented, rusty or bulging can.</li>
+<li>Once a tin is open, do not store food in it. Put leftovers in a bowl or container in the fridge.</li>
+<li>Store dried and cupboard foods in a clean, dry place and follow any storage instructions on the pack.</li>
+</ul>
+
+<h2>Food that needs no cooking</h2>
+<p>Electric and induction hobs will not work in a power cut. The FSA says a camping stove or barbecue can be used, but most are designed for outdoor use only. Never use them indoors, because of the risk of carbon monoxide (see our <a href="first-aid.html">first aid guide</a>). Good no-cook options include ready-to-eat tins, crackers, cereal bars, nut butter and dried fruit, if your household can eat them.</p>
+
+<h2>Food safety in a power cut</h2>
+<p>From the FSA’s power cut advice:</p>
+<ul class="tick">
+<li>A power cut of less than 4 hours is unlikely to affect chilled or frozen food.</li>
+<li>Keep fridge and freezer doors closed. A fridge should stay cold for up to 4 hours. A full freezer should stay frozen for up to 48 hours (24 hours if half full). These are estimates and vary by appliance.</li>
+<li>A fridge thermometer helps. In a power cut, food can be kept in a fridge below 8°C. If it reaches 8°C or above, throw away chilled food (such as food with a use-by date, “keep refrigerated” products and leftovers) after 4 hours, unless the power comes back within 4 hours.</li>
+<li>If it is cold outside (below 8°C), you can store food outside in a clean, sealed box, out of the sun and away from animals.</li>
+<li>Eat in this order: fridge food first, then defrosted food that needs no cooking, then perishable food kept at room temperature, then tins, jars and dried food.</li>
+<li>Take extra care for young children, pregnant women, older people and anyone with a health condition.</li>
+</ul>
+<p>Never use the “sniff test” for food with a use-by date. The FSA says you cannot smell the bugs that cause food poisoning. Read the full <a href="{FSAPC}">FSA power cut advice</a>.</p>
+
+<h2>Special diets and allergies</h2>
+<ul class="tick">
+<li>Store foods that everyone in your home can safely eat, and keep them separate if someone has a food allergy or coeliac disease.</li>
+<li>Check labels each time you buy. The FSA says food businesses must tell you if they use any of the 14 regulated allergens.</li>
+<li>If someone uses an adrenaline auto-injector, the FSA says it is important to carry it with them.</li>
+<li>Write any allergies on your <a href="../plan.html">household plan</a>.</li>
+</ul>
+
+<h2>Babies</h2>
+<p>GOV.UK Prepare says ready-made (“ready-to-feed”) formula is best for emergencies, because you may not be able to boil water or sterilise bottles. The FSA says making up powdered formula safely needs boiled water. The NHS says ready-to-feed formula costs more and must be used more quickly once opened. Keep nappies and wipes too.</p>
+
+<h2>Pets</h2>
+<p>GOV.UK Prepare reminds you not to forget food for pets, and says you may need extra water for them. Keep a few days of your pet’s usual food and any medicines. Ask your vet if you are unsure what your pet needs.</p>
+{sources([("Food Standards Agency (GOV.UK): Food safety in a power cut",FSAPC),("Food Standards Agency (GOV.UK): Home Food Fact Checker",FFC),("Food Standards Agency (GOV.UK): Food allergy and intolerance","https://www.gov.uk/government/publications/food-allergy-and-intolerance-advice-for-consumers/food-allergy-and-intolerance-advice-for-consumers"),("GOV.UK Prepare: Get prepared for emergencies",P+"/get-prepared-for-emergencies/"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit"),("NHS: How to make up baby formula","https://www.nhs.uk/baby/breastfeeding-and-bottle-feeding/bottle-feeding/making-up-baby-formula/"),("NHS: Types of formula","https://www.nhs.uk/baby/breastfeeding-and-bottle-feeding/bottle-feeding/types-of-formula/")])}
+''',"How to keep a small, low-waste food store for emergencies in the UK, and keep food safe in a power cut, following FSA and GOV.UK advice.")
+
+page("guides/flooding.html","Flooding: before, during and after",f'''
+<h1>Flooding: before, during and after</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">Flooding can happen from rivers, the sea, heavy rain and groundwater, sometimes far from a river. A little planning reduces the damage and the worry.</p>
+<div class="note call"><p><strong>If you are in danger, call 999.</strong> Never walk or drive through flood water. GOV.UK Prepare says driving through flood water is the number one cause of death in floods.</p></div>
+
+<h2>Check your risk and get free warnings</h2>
+<ul class="tick">
+<li><strong>England:</strong> the Environment Agency. <a href="https://check-for-flooding.service.gov.uk/">Check for flooding</a>, <a href="https://www.gov.uk/check-long-term-flood-risk">check your long-term risk</a> and <a href="https://www.gov.uk/get-flood-warnings">sign up for free flood warnings</a>.</li>
+<li><strong>Scotland:</strong> SEPA. <a href="https://beta.sepa.scot/flooding/">SEPA flooding</a> and <a href="https://myfloodline.sepa.scot/register">sign up to Floodline</a>.</li>
+<li><strong>Wales:</strong> Natural Resources Wales (NRW). <a href="https://naturalresources.wales/floodwarnings?lang=en">Check flood warnings</a> and <a href="https://naturalresources.wales/flooding/sign-up-to-receive-flood-warnings/?lang=en">sign up for warnings</a>.</li>
+<li><strong>Northern Ireland:</strong> there is no Floodline warning service. GOV.UK says to use flood maps to check your risk. See <a href="https://www.infrastructure-ni.gov.uk/topics/rivers-and-flooding">Department for Infrastructure: Rivers and flooding</a> and <a href="https://www.nidirect.gov.uk/articles/flooding">nidirect: Flooding</a>. To report flooding in Northern Ireland, call the <strong>Flooding Incident Line on 0300 2000 100</strong> (24 hours).</li>
+</ul>
+<p><strong>Floodline: 0345 988 1188</strong> (24 hours; textphone 0345 602 6340) for England, Scotland and Wales. GOV.UK lists 0345 numbers as UK-wide numbers that are charged, not free. You can sign up for warnings by phone. If you have a disability or need extra help, you can ask Floodline to send warnings to a friend or relative too. Warnings do not cover surface water (flash) flooding.</p>
+<p>The warning levels are: <strong>Flood alert</strong> (be prepared), <strong>Flood warning</strong> (take action now) and <strong>Severe flood warning</strong> (danger to life).</p>
+
+<h2>Make a flood plan</h2>
+<ul class="tick">
+<li>Use the <a href="https://www.gov.uk/government/publications/personal-flood-plan">GOV.UK personal flood plan</a>, or the flood section of our <a href="../plan.html">household plan</a>.</li>
+<li>Know how to turn off your gas, electricity and water.</li>
+<li>Agree where you would go, and how you will contact each other. Plan for pets and medicines.</li>
+<li>Pack a grab bag: medicines, a first aid kit, important documents in sealed waterproof bags, a torch, bottled water, warm waterproof clothes and baby items.</li>
+<li>Keep valuable and sentimental things upstairs or up high.</li>
+<li>If your risk is high, look at <a href="https://www.gov.uk/prepare-for-flooding/protect-your-property">ways to protect your property</a>, such as flood barriers or air brick covers.</li>
+<li>Let neighbours know about the risk, especially older or vulnerable people, and join the <a href="priority-services-register.html">Priority Services Register</a> if you need extra help.</li>
+</ul>
+
+<h2>When a flood is coming or happening</h2>
+<ul class="tick">
+<li>Turn off gas, electricity and water if it is safe. <strong>Do not touch electrical switches or plugs if you are standing in water.</strong></li>
+<li>Move people, pets, cars and important things to safety, for example upstairs or to higher ground.</li>
+<li>Put flood protection in place if you have it. Block sinks, baths and toilets, and unplug washing machines and dishwashers.</li>
+<li>If the emergency services tell you to leave, leave. Delaying puts you and rescuers at risk.</li>
+<li>Stay in a high place with a way out if you cannot leave.</li>
+</ul>
+
+<h2>After a flood</h2>
+<ul class="tick">
+<li>Only go back when the emergency services say it is safe.</li>
+<li>Do not turn on gas, electricity or water until your supplier or a qualified engineer has checked them. If you smell gas, call 0800 111 999 (Great Britain).</li>
+<li>Take photos and video of the damage and mark the water level on the wall. Talk to your insurer before you throw things away or start repairs.</li>
+<li>Do not use tap water if it changes colour, taste or smell. Contact your water company. Do not eat food that has touched flood water.</li>
+<li>GOV.UK says to throw away fridge food if the power was off for more than 4 hours, and freezer food if it was off for more than 24 hours.</li>
+<li>If you rent, your landlord is responsible for repairs. If you are not insured or cannot live at home, contact your local council.</li>
+</ul>
+
+<h2>Health risks of flood water</h2>
+<p>The UK Health Security Agency (UKHSA) says flood water can contain sewage and pollutants, and can hide sharp objects and open manholes. Its advice includes:</p>
+<ul class="tick">
+<li>Wear rubber boots, waterproof gloves and an apron when cleaning up. Cover cuts with waterproof plasters.</li>
+<li>Wash your hands well with warm soapy water after touching flood water or anything it has touched. Use bottled water if your water supply is affected.</li>
+<li>Clean hard surfaces with hot water and detergent. Clean and disinfect kitchen items before use, and throw away wooden boards and utensils that touched flood water. Wash fabrics at 60°C.</li>
+<li>Never use petrol or diesel generators indoors, and keep heaters and dryers well ventilated, because of carbon monoxide.</li>
+<li>Get gas or oil heating checked by a qualified engineer before you use it.</li>
+<li>Feeling tired, anxious or unable to sleep is normal after a flood. Talk to your GP, call NHS 111, or contact the Samaritans.</li>
+</ul>
+
+<h2>Insurance basics</h2>
+<ul class="tick">
+<li>Check your home insurance covers flood damage, and keep the policy number on your plan.</li>
+<li><a href="https://www.floodre.co.uk/">Flood Re</a> is a joint scheme between the government and insurers that helps make flood cover more affordable for homes at high risk. You buy insurance in the usual way. Your insurer can pass the flood part of the policy to Flood Re. Use the Flood Re tool to check if your home qualifies. Prices and terms are set by insurers.</li>
+<li>The <a href="https://www.abi.org.uk/policy-and-guidance/general-insurance/flooding">Association of British Insurers</a> has advice on flood claims.</li>
+</ul>
+{sources([("GOV.UK Prepare: Flooding",P+"/be-informed-about-hazards/flooding/"),("GOV.UK: Get flood warnings by text, phone or email (Floodline)","https://www.gov.uk/get-flood-warnings"),("GOV.UK: What to do before or during a flood","https://www.gov.uk/help-during-flood"),("GOV.UK: What to do after a flood","https://www.gov.uk/after-flood"),("GOV.UK: Personal flood plan","https://www.gov.uk/government/publications/personal-flood-plan"),("GOV.UK: Call charges","https://www.gov.uk/call-charges"),("UKHSA (GOV.UK): Flooding and health: advice for the public","https://www.gov.uk/government/publications/flooding-and-health-public-advice/flooding-and-health-advice-for-the-public"),("SEPA: Flooding","https://beta.sepa.scot/flooding/"),("SEPA: Sign up to Floodline","https://myfloodline.sepa.scot/register"),("Natural Resources Wales: Check flood warnings","https://naturalresources.wales/floodwarnings?lang=en"),("Natural Resources Wales: What to do in a flood","https://naturalresources.wales/flooding/what-to-do-in-a-flood/?lang=en"),("nidirect: Flooding","https://www.nidirect.gov.uk/articles/flooding"),("nidirect: Preparing for a flood","https://www.nidirect.gov.uk/articles/preparing-flood"),("nidirect: What to do if a flood happens","https://www.nidirect.gov.uk/articles/what-do-if-flood-happens"),("Department for Infrastructure (NI): Rivers and flooding","https://www.infrastructure-ni.gov.uk/topics/rivers-and-flooding"),("Flood Re: How Flood Re works","https://www.floodre.co.uk/how-flood-re-works/"),("British Red Cross: Floods in the UK","https://www.redcross.org.uk/get-help/prepare-for-emergencies/how-to-prepare-for-floods-and-flooding")])}
+''',"Flooding in the UK: free flood warnings in England, Scotland, Wales and Northern Ireland, Floodline, a flood plan, staying safe, health risks and Flood Re.")
+
+page("guides/cold-weather.html","Cold weather: staying warm and well",f'''
+<h1>Cold weather: staying warm and well</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">Cold weather can affect anyone’s health, and some people are at higher risk. A few simple steps help keep you, your home and your neighbours safe.</p>
+<div class="note call"><p><strong>Hypothermia is a medical emergency.</strong> If you think someone has it, call 999 or go to A&amp;E. See our <a href="first-aid.html">first aid guide</a>.</p></div>
+
+<h2>Warnings and alerts</h2>
+<ul class="tick">
+<li><strong>Met Office weather warnings</strong> (yellow, amber, red) cover snow, ice, wind and rain across the UK. Red means dangerous weather is expected and you should act now. See <a href="https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings">Met Office UK warnings</a>.</li>
+<li><strong>Cold-Health Alerts</strong> come from the UK Health Security Agency (UKHSA) with the Met Office. They warn when cold is likely to affect health, mainly between 1 November and 31 March. They are aimed at health and care services but anyone can view them or sign up. See the <a href="https://www.gov.uk/guidance/weather-health-alerting-system">Weather-Health Alerting System</a> and <a href="https://ukhsa-dashboard.data.gov.uk/weather-health-alerts">current alerts</a>.</li>
+</ul>
+
+<h2>Who is most at risk</h2>
+<p>UKHSA lists people aged 65 and over, people with long-term health conditions, pregnant women, young children (especially aged 5 and under), people with learning disabilities, people at risk of falls, people who live alone, are housebound or have low mobility, and people in deprived circumstances.</p>
+
+<h2>Keeping warm (UKHSA advice)</h2>
+<ul class="tick">
+<li>Try to heat rooms you spend a lot of time in, such as the living room or bedroom, to at least 18°C.</li>
+<li>Reduce draughts, for example with draught excluders. Keep bedroom windows closed at night.</li>
+<li>Wear several thin layers rather than one thick one.</li>
+<li>Try not to sit still for more than an hour or so. Stretching your arms and legs helps.</li>
+<li>Wear shoes with good grip when it is icy.</li>
+<li>If bad weather is forecast, check you have enough medicine and food. Find someone who could fetch them if you cannot go out.</li>
+<li>Get your flu and COVID-19 vaccines if you are eligible (see <a href="https://www.nhs.uk/live-well/seasonal-health/keep-warm-keep-well/">NHS winter health</a>).</li>
+<li>Have heating and cooking appliances checked by a Gas Safe registered engineer, and fit a carbon monoxide alarm. See our <a href="gas-heating.html">no gas or heating guide</a>.</li>
+</ul>
+
+<h2>Frozen and burst pipes</h2>
+<p>From the Met Office:</p>
+<ul class="tick">
+<li>Know where your stop tap is and check it works. It is often under the kitchen sink.</li>
+<li>If a pipe is frozen, turn off the stop tap. Thaw it slowly with hot water bottles or towels soaked in hot water. <strong>Never use a naked flame or blowtorch.</strong></li>
+<li>If a pipe bursts, turn off the stop tap and the boiler, open taps to drain the system (save some water in a bucket for flushing and hand washing), and soak up water with towels.</li>
+<li>If water has leaked near electrics, do not touch them. Switch them off at the fuse box.</li>
+<li>Use a <a href="https://www.watersafe.org.uk/">WaterSafe</a> approved plumber for repairs.</li>
+</ul>
+
+<h2>Check on neighbours</h2>
+<p>UKHSA says older neighbours, family and friends may need extra support in cold weather. Keep in touch, ask if they feel unwell or need practical help, and see if they need help stocking up on food and medicine if bad weather is forecast. If you are worried about someone’s health, contact a pharmacist, a GP or NHS 111.</p>
+
+<h2>Priority Services Register</h2>
+<p>If you or someone you care for is older, disabled, has a long-term health condition or relies on medical equipment, you may be able to join your energy and water companies’ free <a href="priority-services-register.html">Priority Services Register</a> for extra help in a power cut or water cut.</p>
+
+<h2>Help with heating costs</h2>
+<p>These are the official figures for winter 2026 to 2027, from GOV.UK, nidirect and mygov.scot. Check the links for full rules.</p>
+<ul class="tick">
+<li><strong>Winter Fuel Payment</strong> (England, Wales and Northern Ireland): if you were born on or before 27 June 1960, you could get between £100 and £300. Most people get it automatically. If your income is over £35,000, HMRC will take it back. See <a href="https://www.gov.uk/winter-fuel-payment">GOV.UK</a> or <a href="https://www.nidirect.gov.uk/articles/winter-fuel-payment">nidirect</a>.</li>
+<li><strong>Cold Weather Payment</strong> (England, Wales and Northern Ireland): £25 for each 7-day period of very cold weather (average 0°C or below) between 1 November 2026 and 31 March 2027, if you get certain benefits such as Pension Credit or some Universal Credit claims. It is paid automatically. See <a href="https://www.gov.uk/cold-weather-payment">GOV.UK Cold Weather Payment</a> and <a href="https://www.gov.uk/cold-weather-payment/eligibility">who can get it</a>.</li>
+<li><strong>Scotland:</strong> there is no Winter Fuel Payment or Cold Weather Payment. Instead, <a href="https://www.mygov.scot/pension-age-winter-heating-payment">Pension Age Winter Heating Payment</a> (between £105.55 and £316.70) and <a href="https://www.mygov.scot/winter-heating-payment">Winter Heating Payment</a> (currently £62, for people on certain benefits, whatever the weather).</li>
+<li>GOV.UK also mentions the Warm Home Discount (£150 off bills if you get Pension Credit or live in a low-income household), and help from your local council.</li>
+<li><strong>Beware of scams.</strong> These payments are made automatically. Nobody will text or email asking for your bank details.</li>
+</ul>
+{sources([("UKHSA (GOV.UK): Top tips for keeping warm and well this winter","https://www.gov.uk/government/publications/keeping-warm-and-well-staying-safe-in-cold-weather/top-tips-for-keeping-warm-and-well-this-winter"),("UKHSA (GOV.UK): Weather-Health Alerting System","https://www.gov.uk/guidance/weather-health-alerting-system"),("UKHSA data dashboard: Weather-health alerts","https://ukhsa-dashboard.data.gov.uk/weather-health-alerts"),("Met Office: UK weather warnings","https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings"),("Met Office: What to do if you have a frozen or burst pipe","https://weather.metoffice.gov.uk/warnings-and-advice/seasonal-advice/your-home/frozen-or-burst-pipes"),("GOV.UK Prepare: Cold weather, snow and ice",P+"/be-informed-about-hazards/cold-weather-snow-ice/"),("NHS: Winter vaccinations and winter health","https://www.nhs.uk/live-well/seasonal-health/keep-warm-keep-well/"),("British Red Cross: How to prepare for snow and cold weather","https://www.redcross.org.uk/get-help/prepare-for-emergencies/snow-and-winter"),("GOV.UK: Winter Fuel Payment","https://www.gov.uk/winter-fuel-payment"),("GOV.UK: Cold Weather Payment","https://www.gov.uk/cold-weather-payment"),("GOV.UK: Cold Weather Payment eligibility","https://www.gov.uk/cold-weather-payment/eligibility"),("nidirect: Winter Fuel Payment","https://www.nidirect.gov.uk/articles/winter-fuel-payment"),("mygov.scot: Pension Age Winter Heating Payment","https://www.mygov.scot/pension-age-winter-heating-payment"),("mygov.scot: Winter Heating Payment","https://www.mygov.scot/winter-heating-payment"),("Priority Services Register","https://www.thepsr.co.uk/")])}
+''',"Cold weather in the UK: Met Office warnings, UKHSA Cold-Health Alerts, keeping warm, frozen pipes, checking on neighbours and help with heating costs.")
+
 page("guides/power-cut.html","Power cut: what to do",f'''
 <h1>Power cut: what to do</h1>
 <p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
@@ -569,3 +767,6 @@ page("privacy.html","Privacy notice",f'''
 <p class="meta">Last updated: <time datetime="2026-10-15">{CHECKED}</time>.</p>
 ''',"How Home Ready UK uses your information.")
 print("variants built")
+open("sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{u}</loc><lastmod>{CHECKED_ISO}</lastmod></url>\n" for u in dict.fromkeys(PAGES))+"</urlset>\n")
+open("robots.txt","w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
+print("sitemap",len(set(PAGES)))
