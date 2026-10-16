@@ -38,7 +38,8 @@
     h+='<div class="card"><h3>Bottled water for '+days+' '+(days===1?'day':'days')+'</h3>';
     h+='<p><strong>At least '+r1(minL)+' litres</strong> (minimum for drinking).<br><strong>About '+r1(comL)+' litres</strong> to be more comfortable (cooking and washing too).</p>';
     h+='<p class="meta">Based on GOV.UK: 2.5–3 litres per person per day minimum (we use 3), 10 litres for comfort. '+(pets?'Includes about '+r1(pets)+' litres for pets (rough guide). ':'')+(b?'Babies are counted as one person each. ':'')+(c('waterdev')?'Add extra for medical equipment. ':'')+'</p>';
-    h+='<p class="meta">Tip: a big pack of six 2-litre bottles holds 12 litres.</p></div>';
+    h+='<p class="meta">Tip: a big pack of six 2-litre bottles holds 12 litres.</p>';
+    h+='<p class="meta">GOV.UK says there is no standard figure for how many days of water to store. In a longer cut, your water company must provide at least 10 litres per person per day (Ofwat). See our <a href="guides/water-outage.html">no water guide</a>.</p></div>';
     h+='<div class="card"><h3>Things to keep together</h3>';
     items.forEach(function(t,i){h+='<label class="check"><input type="checkbox" id="i'+i+'"> '+esc(t)+'</label>';});
     h+='</div><p>Next: fill in your <a href="plan.html">household plan</a>. Build it up over time and eat the oldest food first, so nothing goes to waste.</p>';
