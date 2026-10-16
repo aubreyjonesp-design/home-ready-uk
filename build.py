@@ -146,8 +146,114 @@ def plan(path,large):
 plan("plan.html",False); plan("plan-large-print.html",True)
 
 # ---------- GUIDES ----------
-G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register")]
-page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register.")
+G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely")]
+page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food and rainwater.")
+
+RHSW="https://www.rhs.org.uk/garden-jobs/water-collecting-storing-and-using"
+page("guides/grow-your-own.html","Grow some of your own food",f'''
+<h1>Grow some of your own food</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">Growing a little food is satisfying, cuts waste and can save some money. It adds to your stored food. It does not replace it.</p>
+<div class="note"><p><strong>Be realistic.</strong> Most crops take weeks or months to grow, and a garden gives most of its food in summer and autumn. Growing your own will not feed a household through a short emergency such as a power cut or a few days of bad weather. For that, keep a few days of food and water you already eat. Use our <a href="../calculator.html">kit and water calculator</a>.</p></div>
+
+<h2>Easy crops for small spaces</h2>
+<p>You do not need a garden. Pots, troughs and grow bags on a patio, balcony or sunny windowsill all work. The RHS suggests containers at least 45cm (18in) deep and wide where you can, otherwise you will need to water and feed more often.</p>
+<ul class="tick">
+<li><strong>Windowsill:</strong> herbs such as basil, parsley and chives, pea shoots and “cut and come again” salad leaves. Salad leaves can grow in containers only 10 to 15cm deep.</li>
+<li><strong>Balcony or patio pots:</strong> tomatoes, chillies, dwarf beans, radishes, beetroot, carrots in a deep pot, spinach, chard and lettuce.</li>
+<li><strong>Bigger pots or a small bed:</strong> potatoes in a large bag or tub, runner beans up a cane, courgettes.</li>
+<li>Use peat-free compost and pots with drainage holes. Pots dry out quickly, so water often in summer. Collected rainwater is ideal for established plants (see our <a href="rainwater.html">rainwater guide</a>).</li>
+<li>On a balcony, check weight limits and any rules in your lease or tenancy, and make sure pots cannot fall.</li>
+</ul>
+
+<h2>A simple UK growing year</h2>
+<p>Timings vary across the UK. The north and high ground are usually a few weeks later than the south. Always check the seed packet.</p>
+<table><caption class="meta">Rough guide for common easy crops</caption>
+<thead><tr><th scope="col">Season</th><th scope="col">What you might do</th></tr></thead><tbody>
+<tr><th scope="row">Late winter (Feb to Mar)</th><td>Plan, buy seed and compost. Sow chillies and tomatoes indoors on a warm windowsill. Chit seed potatoes.</td></tr>
+<tr><th scope="row">Spring (Mar to May)</th><td>Sow salad leaves, radishes, peas, beetroot and carrots. Plant potatoes. Sow beans and courgettes indoors in late spring.</td></tr>
+<tr><th scope="row">Early summer (late May to Jun)</th><td>Once frosts have passed, move tomatoes, beans and courgettes outside. Keep sowing salad every few weeks.</td></tr>
+<tr><th scope="row">Summer (Jul to Aug)</th><td>Main picking season. Water regularly. Sow more salad and some winter crops, such as chard.</td></tr>
+<tr><th scope="row">Autumn (Sep to Nov)</th><td>Lift potatoes and the last crops. Save seed. Store and preserve. Plant garlic.</td></tr>
+<tr><th scope="row">Winter (Dec to Jan)</th><td>Little grows. Pick hardy crops such as kale and leeks. Clean pots and plan for next year.</td></tr>
+</tbody></table>
+
+<h2>Storing and preserving the harvest</h2>
+<ul class="tick">
+<li>Gardens often give too much at once. Share it, or store it.</li>
+<li><strong>Freezing:</strong> Garden Organic says many vegetables, such as peas, beans, broccoli and leeks, freeze well if blanched in boiling water first. Tomatoes are best cooked into a sauce first. Follow the Food Standards Agency’s advice on <a href="https://www.gov.uk/government/publications/how-to-chill-freeze-and-defrost-food-safely/how-to-chill-freeze-and-defrost-food-safely">chilling, freezing and defrosting food safely</a>.</li>
+<li><strong>Cool, dark storage:</strong> some crops, such as potatoes and squash, keep for a while somewhere cool, dark and dry. Check them often and use any damaged ones first.</li>
+<li><strong>Jams, chutneys and pickles:</strong> use a trusted, tested recipe and clean jars. Do not guess with home bottling or canning of low-acid vegetables.</li>
+<li>A freezer relies on power. In a power cut, keep it closed (see our <a href="power-cut.html">power cut guide</a>).</li>
+</ul>
+
+<h2>Allotments</h2>
+<p>An allotment gives you much more space at a low yearly rent. In England and Wales, <a href="https://www.gov.uk/apply-allotment">apply through your local council</a>. GOV.UK says the council will either offer you a plot or, in many cases, add your name to a waiting list. Some lists are long, so it is worth applying early. In Scotland and Northern Ireland, contact your local council. Allotment societies and the <a href="https://thenas.org.uk/">National Allotment Society</a> can also help.</p>
+
+<h2>Saving your own seed</h2>
+<ul class="tick">
+<li>Easy seeds to start with include peas, beans, lettuce and tomatoes.</li>
+<li>The RHS says to save seed only from healthy plants, collect it on a dry day when it is ripe, dry it well, then store it in labelled paper envelopes in an airtight container somewhere cool and dry.</li>
+<li>Seed from F1 hybrid varieties (it says on the packet) may not grow true to the parent plant.</li>
+<li>Garden Organic’s <a href="https://www.gardenorganic.org.uk/what-we-do/hsl">Heritage Seed Library</a> shares older varieties with its members.</li>
+</ul>
+
+<h2>The costs</h2>
+<p>Growing can save some money, especially on herbs and salad, but it is not free. You will need seeds, compost, pots and perhaps tools, canes and netting, and water in dry spells. Allotments have a yearly rent set locally. Start small with a few things you like to eat, reuse pots and containers, and swap seeds and plants with neighbours. Prices vary a lot, so we do not give figures here.</p>
+{sources([("RHS: Vegetables in containers","https://www.rhs.org.uk/vegetables/containers"),("RHS: Vegetable seeds sowing guide","https://www.rhs.org.uk/vegetables/seeds-sowing"),("RHS: Grow your own","https://www.rhs.org.uk/advice/grow-your-own"),("RHS: Seed collecting and storing","https://www.rhs.org.uk/propagation/seed-collecting-storing"),("Garden Organic: Harvesting and storing vegetables","https://www.gardenorganic.org.uk/expert-advice/garden-management/harvesting-and-storage/harvesting-and-storing-vegetables"),("Garden Organic: Heritage Seed Library","https://www.gardenorganic.org.uk/what-we-do/hsl"),("Food Standards Agency (GOV.UK): How to chill, freeze and defrost food safely","https://www.gov.uk/government/publications/how-to-chill-freeze-and-defrost-food-safely/how-to-chill-freeze-and-defrost-food-safely"),("GOV.UK: Apply for an allotment","https://www.gov.uk/apply-allotment"),("National Allotment Society","https://thenas.org.uk/"),("GOV.UK Prepare: Get prepared for emergencies",P+"/get-prepared-for-emergencies/")])}
+''',"Realistic help to grow some of your own food in the UK, even on a windowsill or balcony. It adds to your stored food, not replaces it.")
+
+page("guides/rainwater.html","Collecting rainwater safely",f'''
+<h1>Collecting rainwater safely</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">A water butt saves mains water and is handy for the garden and for flushing the toilet if your water goes off. But it is not drinking water.</p>
+<div class="note call"><p><strong>Do not drink untreated rainwater</strong>, or use it for cooking, brushing teeth or making baby formula. Rain picks up bird and animal droppings, dirt and pollution from roofs and gutters. In a water outage, use bottled water or water from your water company. See our <a href="water-outage.html">no water guide</a>.</p></div>
+
+<h2>Water butts and sizes</h2>
+<ul class="tick">
+<li>A water butt connects to a gutter downpipe on your house, garage, shed or greenhouse. The RHS calls a 240-litre butt “standard”. Smaller and slimline butts are available for tight spaces, and you can link several together.</li>
+<li>Even a small roof collects a lot. The RHS says the roof of a small shed in dry south-east England can collect 2,500 to 3,500 litres a year.</li>
+<li>Stand the butt on a firm, level stand so a watering can fits under the tap. Fit a leaf filter and a close-fitting lid.</li>
+</ul>
+
+<h2>Good uses for rainwater</h2>
+<ul class="tick">
+<li><strong>The garden:</strong> established plants, pots and houseplants. The RHS advises not using it on seedlings, as it may carry diseases that harm them.</li>
+<li><strong>Flushing the toilet</strong> in a water outage: pour a bucket into the bowl or the cistern.</li>
+<li><strong>Outdoor cleaning</strong>, such as washing the car, bikes or tools.</li>
+<li>Avoid spraying stored water as a fine mist. The NHS says Legionnaires’ disease is caught by breathing in tiny water droplets containing the bacteria, and the RHS advises not to use stored water for misting or sprinklers if it is above 20°C.</li>
+</ul>
+
+<h2>What filtering and boiling do, and don’t, do</h2>
+<ul class="tick">
+<li><strong>Leaf filters and screens</strong> keep out leaves and debris. They do not make water safe to drink.</li>
+<li><strong>Boiling</strong> kills or inactivates germs. The Drinking Water Inspectorate (DWI) says bringing water to a rolling boil kills bacteria and viruses and is effective against parasites such as Cryptosporidium.</li>
+<li><strong>Boiling does not remove chemicals</strong>, dirt or pollution. Water companies issue a “do not drink” notice, rather than a “boil water” notice, when water may contain things that boiling cannot remove.</li>
+<li>Not all home water filters can be relied on to remove germs. Rainwater for drinking needs proper treatment, testing and upkeep, to the standards that apply to private water supplies. That is a job for specialists, not a household water butt.</li>
+<li>If you ever need to boil tap water, follow the DWI advice on <a href="https://www.dwi.gov.uk/receiving-a-boil-water-notice/">boil water notices</a>.</li>
+</ul>
+
+<h2>Is it legal?</h2>
+<p>Yes. The RHS says collecting rainwater from roofs is perfectly legal in the UK. If you rent, or own a leasehold flat, check your tenancy agreement or lease, or ask your landlord or managing agent, before fitting a butt or changing gutters and downpipes.</p>
+
+<h2>Keep it clean: algae and mosquitoes</h2>
+<ul class="tick">
+<li>Keep a close-fitting lid on. The RHS says this keeps out plant disease spores and discourages algae. UKHSA advises a well-fitted lid on water butts to stop mosquitoes breeding.</li>
+<li>Keep gutters clear and use the water regularly so it does not sit for long.</li>
+<li>Clean the butt once a year with warm water and a little washing-up liquid, and empty and clean it if it smells.</li>
+<li>Empty or turn over buckets and other containers that collect rain.</li>
+<li>Place butts out of direct sun if you can, to keep the water cooler.</li>
+<li>Make sure young children cannot climb in or open the lid.</li>
+</ul>
+
+<h2>Keep it separate from your mains water</h2>
+<ul class="tick">
+<li>Never connect a water butt or rainwater pipe to your mains water pipes, even with a hose. Dirty water can flow backwards (backflow) and contaminate drinking water in your home and your neighbours’ homes.</li>
+<li>Water Regs UK says other water sources such as rainwater must never be connected directly to mains drinking water, and you should tell your water company if your home has both. Mains back-up needs a proper air gap.</li>
+<li>Whole-house rainwater systems that supply toilets or washing machines must meet the <a href="https://www.legislation.gov.uk/uksi/1999/1148/contents/made">Water Supply (Water Fittings) Regulations 1999</a>. Use an approved plumber and keep pipes labelled.</li>
+</ul>
+{sources([("RHS: Collecting, storing and reusing water",RHSW),("RHS: Managing water in your garden","https://www.rhs.org.uk/gardening-for-the-environment/water"),("Drinking Water Inspectorate: Receiving a boil water notice","https://www.dwi.gov.uk/receiving-a-boil-water-notice/"),("Drinking Water Inspectorate: Protecting your private water supply (rainwater harvesting)","https://www.dwi.gov.uk/private-water-supplies/customers-receiving-pws/protecting-your-private-water-supply/"),("South East Water: Boil water and do not drink notices","https://www.southeastwater.co.uk/help/works-and-outages/our-promise-to-you-if-your-water-supply-is-interrupted/"),("UKHSA (GOV.UK): Mosquito control","https://www.gov.uk/government/publications/mosquito-control"),("NHS: Legionnaires’ disease","https://www.nhs.uk/conditions/legionnaires-disease/"),("Water Regs UK: Connecting mains water to other water sources","https://www.waterregsuk.co.uk/topics/all-faqs/can-mains-water-supplies-be-connected-to-installations-also-supplied-by-another-alternative-source-of-water/"),("Water Supply (Water Fittings) Regulations 1999 (legislation.gov.uk)","https://www.legislation.gov.uk/uksi/1999/1148/contents/made"),("GOV.UK Prepare: Water supply interruptions or outages",P+"/be-informed-about-hazards/water-supply-interruptions-or-outages/")])}
+''',"How to collect rainwater safely in the UK: water butts, safe uses, why it is not drinking water, and keeping it separate from mains.")
 
 page("guides/power-cut.html","Power cut: what to do",f'''
 <h1>Power cut: what to do</h1>
