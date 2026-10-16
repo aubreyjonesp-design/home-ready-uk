@@ -156,21 +156,86 @@ def plan(path,large):
 {rows(["Water company","Energy supplier","Family or friend","Neighbour","GP / pharmacy","Home insurance (policy no.)"])}
 </tbody></table>
 <table><caption class="meta">Our home</caption><tbody>
-{rows(["Water stop tap is","Gas shut-off is","Fuse box (consumer unit) is","Torch, radio and kit are","Meeting place if we can’t get home","Radio station and frequency","On the Priority Services Register? (who / which company)"])}
+{rows(["Water stop tap is","Gas shut-off is","Fuse box (consumer unit) is","Torch, radio, kit and cash are","Meeting place if we can’t get home","Radio station and frequency","On the Priority Services Register? (who / which company)"])}
 </tbody></table>
 <table><caption class="meta">People who need extra help</caption><tbody>
 {rows(["Name and what help they need","Regular medicines (name, dose)","Allergies (who, what)","Medical equipment and back-up battery"])}
 </tbody></table>
 <table><caption class="meta">Supplies and seasonal checks</caption><tbody>
-{rows(["First aid kit and medicines list are kept","Food store is kept (next date check)","Water butt (not for drinking) is","Flood warnings signed up? Grab bag is","Cold weather: who we check on"])}
+{rows(["First aid kit and medicines list are kept","Food store is kept (next date check)","Water butt (not for drinking) is","Flood warnings signed up? Grab bag is","Cold weather: who we check on","Hot weather: coolest room / who we check on"])}
 </tbody></table>
 <p class="meta">Check this plan every 6 months. Last checked by us: <time datetime="2026-10-15">{CHECKED}</time>. Based on <a href="{P}/get-prepared-for-emergencies/">GOV.UK Prepare</a> (Crown copyright, Open Government Licence v3.0). Home Ready UK is independent of government.</p>
-''',"A printable "+("large-print " if large else "")+"household emergency plan for numbers, medicines, first aid, food, flooding and cold weather, based on GOV.UK advice.","large" if large else "")
+''',"A printable "+("large-print " if large else "")+"household emergency plan for numbers, medicines, first aid, food, flooding, cold and hot weather, based on GOV.UK advice.","large" if large else "")
 plan("plan.html",False); plan("plan-large-print.html",True)
 
+BTHC="https://www.gov.uk/government/publications/beat-the-heat-resources-for-hot-weather/beat-the-heat-keep-cool-at-home-checklist"
+CIBSE="https://www.cibse.org/policy-advocacy/news/how-to-keep-your-space-cool-during-a-heatwave-with-cibses-practical-advice-for-residents-and-homeowners/"
+def ready(h,items,intro="Do these now, while things are calm. Each one only takes a few minutes or a small cost."):
+    return f'<div class="card"><h2 id="get-ready">{h}</h2><p>{intro}</p><ul class="tick">'+"".join(f"<li>{i}</li>" for i in items)+"</ul></div>\n"
+R={}
+R["extreme-heat"]=ready("Get ready before summer",[
+"<strong>Find your coolest room.</strong> Note which rooms stay coolest on a warm day, usually away from the sun. UKHSA says to move to a cooler part of the house, especially for sleeping.",
+"<strong>Fit or check blinds and curtains</strong> on sunny windows, especially south, east and west facing. UKHSA suggests internal blinds or curtains. CIBSE says reflective films on windows can also help.",
+"<strong>Shade windows from the outside if you can.</strong> UKHSA says external shutters, roller blinds or awnings are very effective, and plants outside can shade south-facing windows. CIBSE says external shading works far better than inside blinds, and even a fabric screen fixed outside a window helps.",
+"<strong>Check your fan works in spring</strong>, or buy one before demand rises. Remember UKHSA’s advice: use fans only when the air is below 35°C, and do not aim them straight at your body.",
+"<strong>Get an indoor thermometer.</strong> The NHS says to check the temperature of rooms, especially where people at higher risk live and sleep.",
+"<strong>Check how your medicines must be stored.</strong> UKHSA says some must be kept below 25°C or in the fridge. Ask your pharmacist if you are unsure, and keep taking them unless told otherwise.",
+"<strong>Get a refillable water bottle for each person</strong>, and keep some sealed bottled water in case hot weather affects water supplies (see our <a href=\"water-outage.html\">no water guide</a>).",
+"<strong>Pack a summer kit:</strong> sunscreen of at least SPF 30 with 4 or 5 star UVA protection (UKHSA, citing the NHS), wide-brimmed hats, sunglasses, light loose clothes, and a spray bottle or cold packs for cooling skin.",
+"<strong>Agree who you will check on</strong>, such as an older neighbour or relative, and how (a call or a visit each day in hot weather). Ask someone to check on you if you are at higher risk.",
+"<strong>Sign up for warnings.</strong> Use the Met Office app to set alerts for your area, or subscribe to Met Office email alerts on the <a href=\"https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings\">warnings page</a>. In England, <a href=\"https://www.gov.uk/guidance/weather-health-alerting-system\">register for UKHSA Heat-Health Alerts</a>.",
+"<strong>Plan shade and water for pets.</strong> Dogs Trust says make sure your dog has shade and plenty of fresh water all day.",
+"<strong>Fit a water butt before a dry spell.</strong> During a hosepipe ban, water companies such as Essex &amp; Suffolk Water say you can still use collected rainwater. See our <a href=\"rainwater.html\">rainwater guide</a>.",
+"<strong>Plan travel and work around hot days.</strong> GOV.UK Prepare says allow extra time for journeys, as heat can damage roads and slow trains, and take extra water. Plan active jobs for early morning or evening.",
+"<strong>Think longer term.</strong> If your home overheats (for example a top-floor flat or windows that barely open), GOV.UK Prepare says contact your local council, letting agency or Citizens Advice. The NHS says council environmental health teams can inspect a rented home for excess heat. If you are insulating or refurbishing, UKHSA says ask installers about reducing overheating. New homes in England must meet <a href=\"https://www.gov.uk/government/publications/overheating-approved-document-o\">Building Regulations Part O (overheating)</a>."])
+R["food-storage"]=ready("Get ready now",[
+"<strong>Add a few extra tins and packets</strong> of food you already eat to your next shop. Put them at the back of the cupboard.",
+"<strong>Keep a manual tin opener</strong> with your store (British Red Cross).",
+"<strong>Buy a fridge thermometer.</strong> The FSA says it tells you if your fridge has got too warm in a power cut.",
+"<strong>Find a clean box with a lid</strong> for storing food outside in cold weather if the power goes off (FSA).",
+"<strong>Keep your freezer well filled.</strong> The FSA says a full freezer stays frozen for longer than a half-full one.",
+"<strong>If you have a baby</strong>, keep some ready-to-feed formula (GOV.UK Prepare). <strong>If you have pets</strong>, keep a few days of their food.",
+"<strong>Set a reminder</strong> every few months to check dates and move older food to the front."])
+R["flooding"]=ready("Get ready now",[
+"<strong>Check your flood risk</strong> using the links below for your nation.",
+"<strong>Sign up for free flood warnings</strong> (England, Scotland, Wales), online or by calling Floodline on 0345 988 1188.",
+"<strong>Write your flood plan</strong>: who to call, where you would go, and how to turn off gas, electricity and water. Use the GOV.UK personal flood plan or our <a href=\"../plan.html\">household plan</a>.",
+"<strong>Pack a grab bag</strong>: medicines, first aid kit, torch, bottled water, warm waterproof clothes, baby items and copies of documents.",
+"<strong>Put documents in sealed waterproof bags</strong> and keep valuables upstairs or up high (GOV.UK Prepare).",
+"<strong>Check your home insurance covers flooding</strong>, and write the policy number and helpline on your plan.",
+"<strong>Save key numbers</strong>, such as your council, insurer and utilities (nidirect suggests a list of useful contacts).",
+"<strong>Tell neighbours</strong>, especially older or vulnerable people, and join the <a href=\"priority-services-register.html\">Priority Services Register</a> if you need extra help."])
+R["cold-weather"]=ready("Get ready now",[
+"<strong>Book a boiler and heating check</strong> with a Gas Safe registered engineer before winter (GOV.UK Prepare, British Red Cross).",
+"<strong>Fit or test a carbon monoxide alarm</strong> that meets British or European Standards (BS Kitemark or EN 50291) (GOV.UK Prepare).",
+"<strong>Find your stop tap and check it works.</strong> The Met Office says check it every six months, and insulate pipes in the loft and other cold spots.",
+"<strong>Keep a WaterSafe plumber’s number</strong> by the boiler or stop tap (Met Office).",
+"<strong>Draught-proof doors and windows</strong> with draught excluders or by sealing small gaps (UKHSA, British Red Cross).",
+"<strong>Stock up on medicines and food</strong> in case it is hard to get out, and agree who could fetch them for you (GOV.UK Prepare).",
+"<strong>Get a snow shovel and some grit</strong> (the Red Cross says sand or cat litter also works).",
+"<strong>Pack a car winter kit</strong>: torch, phone charger, warm clothes and blankets, high-visibility clothing, jump leads, food and drink, a snow shovel and a first aid kit (GOV.UK Prepare).",
+"<strong>Get your flu and COVID-19 vaccines</strong> if you are eligible.",
+"<strong>Sign up for warnings:</strong> Met Office app alerts, and UKHSA Cold-Health Alerts in England.",
+"<strong>Check you are getting the help you are entitled to</strong> with heating costs (below), and join the <a href=\"priority-services-register.html\">Priority Services Register</a> if eligible."])
+R["first-aid"]=ready("Get ready now",[
+"<strong>Put together or check your first aid kit</strong> using the list below, and replace anything out of date.",
+"<strong>Write a paper list</strong> of everyone’s medicines, allergies and GP details, and keep it with your kit or on your <a href=\"../plan.html\">plan</a>.",
+"<strong>Put a small kit in the car</strong> and in your grab bag (British Red Cross).",
+"<strong>Download the free British Red Cross first aid app</strong> while you have signal. It works without internet.",
+"<strong>Book a free or low-cost first aid session</strong> (see the end of this page).",
+"<strong>If you are deaf or cannot speak on the phone, register for emergencySMS now</strong>: text the word register to 999 (Relay UK)."])
+R["rainwater"]=ready("Get ready now",[
+"<strong>If you rent or own a leasehold flat, check</strong> your tenancy or lease, or ask your landlord, before fitting a water butt.",
+"<strong>Fit a water butt to a downpipe</strong> on a firm, level stand, with a leaf filter and a close-fitting lid (RHS, UKHSA).",
+"<strong>Make sure children cannot climb in</strong> or open the lid.",
+"<strong>Label it “not drinking water”</strong> and keep bottled water for drinking (see our <a href=\"water-outage.html\">no water guide</a>).",
+"<strong>Never connect it to your mains pipes</strong> (Water Regs UK).",
+"<strong>Fit it before a dry spell.</strong> During a hosepipe ban, Essex &amp; Suffolk Water says you can still use collected rainwater."])
+
+NRR="https://www.gov.uk/government/publications/national-risk-register-2026"
 # ---------- GUIDES ----------
-G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely"),("first-aid","First aid at home"),("food-storage","Storing food for emergencies"),("flooding","Flooding: before, during and after"),("cold-weather","Cold weather: staying warm and well")]
-page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food, rainwater, first aid, food storage, flooding and cold weather.")
+G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely"),("first-aid","First aid at home"),("food-storage","Storing food for emergencies"),("flooding","Flooding: before, during and after"),("cold-weather","Cold weather: staying warm and well"),("extreme-heat","Extreme heat: staying safe in hot weather"),("leaving-home","Leaving home quickly, or staying inside safely"),("fire-and-carbon-monoxide","Fire and carbon monoxide safety"),("phones-internet-down","When phones and the internet are down"),("cash-and-banking","When cards and banking stop"),("storms","Storms and high winds"),("illness-at-home","Illness at home: flu, norovirus and pandemics"),("hospital-backup-plan","If you’re suddenly in hospital: a carer’s back-up plan"),("fuel-and-heating-oil","Fuel shortages and heating oil"),("run-hide-tell","Terrorism: Run, Hide, Tell")]
+page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food, rainwater, first aid, food storage, flooding, cold weather and extreme heat.")
 
 RHSW="https://www.rhs.org.uk/garden-jobs/water-collecting-storing-and-using"
 page("guides/grow-your-own.html","Grow some of your own food",f'''
@@ -232,7 +297,7 @@ page("guides/rainwater.html","Collecting rainwater safely",f'''
 <p class="lead">A water butt saves mains water and is handy for the garden and for flushing the toilet if your water goes off. But it is not drinking water.</p>
 <div class="note call"><p><strong>Do not drink untreated rainwater</strong>, or use it for cooking, brushing teeth or making baby formula. Rain picks up bird and animal droppings, dirt and pollution from roofs and gutters. In a water outage, use bottled water or water from your water company. See our <a href="water-outage.html">no water guide</a>.</p></div>
 
-<h2>Water butts and sizes</h2>
+{R["rainwater"]}<h2>Water butts and sizes</h2>
 <ul class="tick">
 <li>A water butt connects to a gutter downpipe on your house, garage, shed or greenhouse. The RHS calls a 240-litre butt “standard”. Smaller and slimline butts are available for tight spaces, and you can link several together.</li>
 <li>Even a small roof collects a lot. The RHS says the roof of a small shed in dry south-east England can collect 2,500 to 3,500 litres a year.</li>
@@ -275,7 +340,7 @@ page("guides/rainwater.html","Collecting rainwater safely",f'''
 <li>Water Regs UK says other water sources such as rainwater must never be connected directly to mains drinking water, and you should tell your water company if your home has both. Mains back-up needs a proper air gap.</li>
 <li>Whole-house rainwater systems that supply toilets or washing machines must meet the <a href="https://www.legislation.gov.uk/uksi/1999/1148/contents/made">Water Supply (Water Fittings) Regulations 1999</a>. Use an approved plumber and keep pipes labelled.</li>
 </ul>
-{sources([("RHS: Collecting, storing and reusing water",RHSW),("RHS: Managing water in your garden","https://www.rhs.org.uk/gardening-for-the-environment/water"),("Drinking Water Inspectorate: Receiving a boil water notice","https://www.dwi.gov.uk/receiving-a-boil-water-notice/"),("Drinking Water Inspectorate: Protecting your private water supply (rainwater harvesting)","https://www.dwi.gov.uk/private-water-supplies/customers-receiving-pws/protecting-your-private-water-supply/"),("South East Water: Boil water and do not drink notices","https://www.southeastwater.co.uk/help/works-and-outages/our-promise-to-you-if-your-water-supply-is-interrupted/"),("UKHSA (GOV.UK): Mosquito control","https://www.gov.uk/government/publications/mosquito-control"),("NHS: Legionnaires’ disease","https://www.nhs.uk/conditions/legionnaires-disease/"),("Water Regs UK: Connecting mains water to other water sources","https://www.waterregsuk.co.uk/topics/all-faqs/can-mains-water-supplies-be-connected-to-installations-also-supplied-by-another-alternative-source-of-water/"),("Water Supply (Water Fittings) Regulations 1999 (legislation.gov.uk)","https://www.legislation.gov.uk/uksi/1999/1148/contents/made"),("GOV.UK Prepare: Water supply interruptions or outages",P+"/be-informed-about-hazards/water-supply-interruptions-or-outages/")])}
+{sources([("RHS: Collecting, storing and reusing water",RHSW),("RHS: Managing water in your garden","https://www.rhs.org.uk/gardening-for-the-environment/water"),("Drinking Water Inspectorate: Receiving a boil water notice","https://www.dwi.gov.uk/receiving-a-boil-water-notice/"),("Drinking Water Inspectorate: Protecting your private water supply (rainwater harvesting)","https://www.dwi.gov.uk/private-water-supplies/customers-receiving-pws/protecting-your-private-water-supply/"),("South East Water: Boil water and do not drink notices","https://www.southeastwater.co.uk/help/works-and-outages/our-promise-to-you-if-your-water-supply-is-interrupted/"),("UKHSA (GOV.UK): Mosquito control","https://www.gov.uk/government/publications/mosquito-control"),("NHS: Legionnaires’ disease","https://www.nhs.uk/conditions/legionnaires-disease/"),("Water Regs UK: Connecting mains water to other water sources","https://www.waterregsuk.co.uk/topics/all-faqs/can-mains-water-supplies-be-connected-to-installations-also-supplied-by-another-alternative-source-of-water/"),("Water Supply (Water Fittings) Regulations 1999 (legislation.gov.uk)","https://www.legislation.gov.uk/uksi/1999/1148/contents/made"),("GOV.UK Prepare: Water supply interruptions or outages",P+"/be-informed-about-hazards/water-supply-interruptions-or-outages/"),("Essex & Suffolk Water: Temporary Use Ban (hosepipe ban)","https://www.eswater.co.uk/temporaryuseban")])}
 ''',"How to collect rainwater safely in the UK: water butts, safe uses, why it is not drinking water, and keeping it separate from mains.")
 
 page("guides/first-aid.html","First aid at home",f'''
@@ -284,7 +349,7 @@ page("guides/first-aid.html","First aid at home",f'''
 <p class="lead">A simple first aid kit and a few basic steps can help while you wait for help, especially during a power cut or a cold snap. This page sums up the official advice and links to it in full.</p>
 <div class="note call"><p><strong>This guide does not replace first aid training.</strong> It is a short summary of advice from the NHS, St John Ambulance and the British Red Cross. Always follow the full official page and the instructions of the 999 call handler. If someone is seriously ill or injured, call 999.</p></div>
 
-<h2>Your home first aid kit</h2>
+{R["first-aid"]}<h2>Your home first aid kit</h2>
 <p>You can buy a ready-made kit or put one together in a clean, waterproof box, says St John Ambulance. NHS and St John lists include:</p>
 <ul class="tick">
 <li>Plasters in different sizes (waterproof if possible)</li>
@@ -414,7 +479,7 @@ page("guides/food-storage.html","Storing food for emergencies",f'''
 <p class="lead">A small store of food you already eat makes a power cut, water cut or snowed-in week much easier. Build it up slowly and use it, so nothing goes to waste.</p>
 <div class="note"><p>GOV.UK Prepare does not give a set amount of food to keep. It says how much you need depends on your own circumstances. It suggests food that does not need cooking, such as ready-to-eat tinned meat, fruit or vegetables, plus a tin opener.</p></div>
 
-<h2>Keep a rotation store</h2>
+{R["food-storage"]}<h2>Keep a rotation store</h2>
 <ul class="tick">
 <li>Buy a few extra of the long-life foods you normally eat. Put new ones at the back and use the oldest first.</li>
 <li>Check dates when you buy and when you put things away. The Food Standards Agency (FSA) says a <strong>use-by</strong> date is about safety, and a <strong>best before</strong> date is about quality. Food can be eaten after its best before date, but may not taste as good.</li>
@@ -466,7 +531,7 @@ page("guides/flooding.html","Flooding: before, during and after",f'''
 <p class="lead">Flooding can happen from rivers, the sea, heavy rain and groundwater, sometimes far from a river. A little planning reduces the damage and the worry.</p>
 <div class="note call"><p><strong>If you are in danger, call 999.</strong> Never walk or drive through flood water. GOV.UK Prepare says driving through flood water is the number one cause of death in floods.</p></div>
 
-<h2>Check your risk and get free warnings</h2>
+{R["flooding"]}<h2>Check your risk and get free warnings</h2>
 <ul class="tick">
 <li><strong>England:</strong> the Environment Agency. <a href="https://check-for-flooding.service.gov.uk/">Check for flooding</a>, <a href="https://www.gov.uk/check-long-term-flood-risk">check your long-term risk</a> and <a href="https://www.gov.uk/get-flood-warnings">sign up for free flood warnings</a>.</li>
 <li><strong>Scotland:</strong> SEPA. <a href="https://beta.sepa.scot/flooding/">SEPA flooding</a> and <a href="https://myfloodline.sepa.scot/register">sign up to Floodline</a>.</li>
@@ -532,7 +597,7 @@ page("guides/cold-weather.html","Cold weather: staying warm and well",f'''
 <p class="lead">Cold weather can affect anyone’s health, and some people are at higher risk. A few simple steps help keep you, your home and your neighbours safe.</p>
 <div class="note call"><p><strong>Hypothermia is a medical emergency.</strong> If you think someone has it, call 999 or go to A&amp;E. See our <a href="first-aid.html">first aid guide</a>.</p></div>
 
-<h2>Warnings and alerts</h2>
+{R["cold-weather"]}<h2>Warnings and alerts</h2>
 <ul class="tick">
 <li><strong>Met Office weather warnings</strong> (yellow, amber, red) cover snow, ice, wind and rain across the UK. Red means dangerous weather is expected and you should act now. See <a href="https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings">Met Office UK warnings</a>.</li>
 <li><strong>Cold-Health Alerts</strong> come from the UK Health Security Agency (UKHSA) with the Met Office. They warn when cold is likely to affect health, mainly between 1 November and 31 March. They are aimed at health and care services but anyone can view them or sign up. See the <a href="https://www.gov.uk/guidance/weather-health-alerting-system">Weather-Health Alerting System</a> and <a href="https://ukhsa-dashboard.data.gov.uk/weather-health-alerts">current alerts</a>.</li>
@@ -581,6 +646,89 @@ page("guides/cold-weather.html","Cold weather: staying warm and well",f'''
 {sources([("UKHSA (GOV.UK): Top tips for keeping warm and well this winter","https://www.gov.uk/government/publications/keeping-warm-and-well-staying-safe-in-cold-weather/top-tips-for-keeping-warm-and-well-this-winter"),("UKHSA (GOV.UK): Weather-Health Alerting System","https://www.gov.uk/guidance/weather-health-alerting-system"),("UKHSA data dashboard: Weather-health alerts","https://ukhsa-dashboard.data.gov.uk/weather-health-alerts"),("Met Office: UK weather warnings","https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings"),("Met Office: What to do if you have a frozen or burst pipe","https://weather.metoffice.gov.uk/warnings-and-advice/seasonal-advice/your-home/frozen-or-burst-pipes"),("GOV.UK Prepare: Cold weather, snow and ice",P+"/be-informed-about-hazards/cold-weather-snow-ice/"),("NHS: Winter vaccinations and winter health","https://www.nhs.uk/live-well/seasonal-health/keep-warm-keep-well/"),("British Red Cross: How to prepare for snow and cold weather","https://www.redcross.org.uk/get-help/prepare-for-emergencies/snow-and-winter"),("GOV.UK: Winter Fuel Payment","https://www.gov.uk/winter-fuel-payment"),("GOV.UK: Cold Weather Payment","https://www.gov.uk/cold-weather-payment"),("GOV.UK: Cold Weather Payment eligibility","https://www.gov.uk/cold-weather-payment/eligibility"),("nidirect: Winter Fuel Payment","https://www.nidirect.gov.uk/articles/winter-fuel-payment"),("mygov.scot: Pension Age Winter Heating Payment","https://www.mygov.scot/pension-age-winter-heating-payment"),("mygov.scot: Winter Heating Payment","https://www.mygov.scot/winter-heating-payment"),("Priority Services Register","https://www.thepsr.co.uk/")])}
 ''',"Cold weather in the UK: Met Office warnings, UKHSA Cold-Health Alerts, keeping warm, frozen pipes, checking on neighbours and help with heating costs.")
 
+BTH="https://www.gov.uk/government/publications/beat-the-heat-resources-for-hot-weather/beat-the-heat-staying-safe-in-hot-weather"
+page("guides/extreme-heat.html","Extreme heat: staying safe in hot weather",f'''
+<h1>Extreme heat: staying safe in hot weather</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">Many people enjoy hot weather, but too much heat can make anyone unwell. Simple steps keep you, your home and the people around you safer.</p>
+<div class="note call"><p><strong>Heatstroke is a medical emergency. Call 999</strong> if someone has a very high temperature, hot skin that is not sweating, fast breathing or heartbeat, confusion, a fit or loses consciousness, or is still unwell after 30 minutes of cooling down.</p></div>
+
+{R["extreme-heat"]}<h2>Warnings and alerts</h2>
+<ul class="tick">
+<li><strong>Met Office Extreme Heat warnings</strong> cover the whole UK. Like other Met Office warnings, they are based on the likely impact, not a set temperature. The Met Office says amber and red extreme heat warnings can be issued. Red means dangerous weather is expected, with a risk to life: act now. See <a href="https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings">Met Office UK warnings</a> and the <a href="https://weather.metoffice.gov.uk/guides/warnings">warnings guide</a>.</li>
+<li><strong>Heat-Health Alerts</strong> come from the UK Health Security Agency (UKHSA) with the Met Office. They cover <strong>England only</strong>. The main season runs from 1 June to 30 September, with extra alerts outside it if needed. They are aimed at health and care services, but anyone can view or sign up for them:
+<ul>
+<li><strong>Yellow:</strong> heat likely to affect mainly people who are particularly vulnerable, or a less certain forecast that could get worse.</li>
+<li><strong>Amber:</strong> impacts likely across the whole health service, with the whole population potentially at risk.</li>
+<li><strong>Red:</strong> significant risk to life, even for healthy people. It is issued with a red Extreme Heat warning.</li>
+</ul>
+See the <a href="https://weather.metoffice.gov.uk/warnings-and-advice/seasonal-advice/heat-health-alert-service">Heat-Health Alert service</a> and <a href="https://ukhsa-dashboard.data.gov.uk/weather-health-alerts">current alerts</a>.</li>
+</ul>
+
+<h2>Who is most at risk</h2>
+<p>UKHSA lists people aged 65 and over, babies and children aged 5 and under, and pregnant women. It also includes people with heart or breathing problems, dementia, diabetes, kidney disease, Parkinson’s disease or mobility problems, and people on certain medicines. Others at risk are people with serious mental health problems, people who are already ill and dehydrated, and people with alcohol or drug dependence. So are people who are active or work outside, people experiencing homelessness, and people who live alone.</p>
+
+<h2>Keeping your home cool (UKHSA “Beat the heat”)</h2>
+<ul class="tick">
+<li>Close blinds and curtains on windows in direct sun during the day. Close outside shutters if you have them.</li>
+<li>Open windows, if it is safe, when the air outside feels cooler than inside, for example at night. Try to get air flowing through.</li>
+<li>Use electric fans if the air temperature is below 35°C, but do not aim them directly at your body.</li>
+<li>Check the heating is off, and turn off lights and equipment you are not using.</li>
+<li>Move to a cooler room, especially for sleeping. Libraries, places of worship or supermarkets may be cooler than your home.</li>
+<li>Stay out of the sun between 11am and 3pm, and plan activity for the early morning or evening.</li>
+</ul>
+
+<h2>Heat exhaustion or heatstroke?</h2>
+<p><strong>Heat exhaustion</strong> (NHS): tiredness, dizziness, headache, feeling or being sick, heavy sweating with pale clammy skin, cramps, a high temperature, intense thirst and irritability. It usually does not need emergency help if the person cools down within 30 minutes:</p>
+<ul class="tick">
+<li>Move them somewhere cool and remove unnecessary clothing.</li>
+<li>Give plenty of water, or a sports or rehydration drink.</li>
+<li>Spray or sponge their skin with cool water and fan them. Cold packs wrapped in cloth under the armpits or on the neck help too.</li>
+<li>Stay with them. Call 111 if you are struggling to treat it or need advice.</li>
+</ul>
+<p><strong>Heatstroke</strong> is an emergency. Call 999 for the signs in the box at the top. While you wait, the NHS says to wrap them in a cool wet sheet, or fan or sponge them with cold water. If they become unresponsive, follow our <a href="first-aid.html">first aid guide</a> (recovery position or CPR). Read more: <a href="https://www.nhs.uk/conditions/heat-exhaustion-heatstroke/">NHS: Heat exhaustion and heatstroke</a> · <a href="https://www.sja.org.uk/first-aid-advice/heatstroke/">St John Ambulance: Heatstroke</a>.</p>
+
+<h2>Drinks and medicines</h2>
+<ul class="tick">
+<li>Drink fluids regularly. UKHSA says enough that your pee is a pale straw colour. Water, diluted squash and lower-fat milk are good choices. Limit alcohol, which dehydrates you.</li>
+<li>Keep taking your prescribed medicines unless a health professional tells you otherwise. Some medicines must be stored below 25°C or in the fridge, so check the pack.</li>
+<li>The NHS says people on several medicines, or medicines that may make heat worse, are at higher risk. <strong>Ask a pharmacist</strong> if you are unsure about your medicines in the heat, or call 111.</li>
+</ul>
+
+<h2>Checking on others, children, babies and pets</h2>
+<ul class="tick">
+<li>Check on family, friends and neighbours at higher risk, and ask them to check on you if you are at risk.</li>
+<li><strong>Never leave babies, children, older people or pets alone in a parked car</strong> or other small closed space. UKHSA says they can get dangerously hot very quickly.</li>
+<li>Shade prams with a parasol, keep air flowing, remove extra clothing and check babies often. Children should not do hard exercise on very hot days.</li>
+<li>Dogs Trust says winding a window down is not enough, and a dog could die in a hot car in minutes. Walk dogs at cooler times of day. If you see a dog showing signs of heatstroke in a hot car, the RSPCA says call 999.</li>
+<li>If your dog overheats, the RSPCA says “cool first, transport second”: stop exercise, get it into shade, pour cool (not ice-cold) water over its body but not its head, then take it to a vet.</li>
+</ul>
+
+<h2>Swimming and cold water shock</h2>
+<p>Rivers, lakes and the sea are often much colder than they look, even in summer. The RNLI says water below 15°C can cause cold water shock, which affects your breathing and movement and can lead to drowning. It says average UK and Ireland sea temperatures are just 12°C.</p>
+<ul class="tick">
+<li>If you fall in, the RNLI says: take a minute, as the first effects pass in less than a minute. Relax and float, then call for help or swim to safety if you can.</li>
+<li>UKHSA advises swimming only where there are lifeguards, never after alcohol, always with someone else, and getting out as soon as you feel cold.</li>
+<li>Wear a buoyancy aid or life jacket for boating, fishing or activities at the water’s edge.</li>
+</ul>
+
+<h2>Wildfires and barbecues</h2>
+<ul class="tick">
+<li>The National Fire Chiefs Council (NFCC) says only have barbecues and campfires in designated areas, never leave them unattended, and put them out fully with water.</li>
+<li>Keep a barbecue on a flat surface that cannot burn, well away from fences, sheds and plants, with water nearby. Never use one indoors or on a balcony, and never use petrol or other flammable liquids to light it.</li>
+<li>Take litter home. Glass bottles can focus the sun and start a fire. Put cigarettes out properly.</li>
+<li>Follow any local restrictions and the advice of the emergency services. GOV.UK has <a href="https://www.gov.uk/guidance/statutory-guidelines-on-disposable-bbqs">current guidance</a> saying disposable barbecues should not be sold during the present drought and heatwave conditions in Great Britain.</li>
+<li>If you see a wildfire, the NFCC says move to a place of safety and call 999. Do not assume someone else has reported it.</li>
+</ul>
+
+<h2>Hosepipe bans and saving water</h2>
+<p>Ofwat says water companies can bring in a hosepipe ban (a “Temporary Use Ban”) when supplies are low after long dry spells. There is still enough water to drink and wash. You cannot use a hosepipe for things like watering the garden, filling a paddling pool or washing the car, but you can use a watering can or bucket. Ofwat says breaking the rules can lead to a fine of up to £1,000. Check your water company’s website for local rules and exemptions. Collected rainwater is ideal for the garden: see our <a href="rainwater.html">rainwater guide</a>.</p>
+
+<h2>Power cuts in hot weather</h2>
+<p>UKHSA says to look out for advice if power or water supplies are likely to be affected. Fans and fridges stop working in a power cut, so keep a battery or wind-up torch and radio and a charged power bank, and keep fridge and freezer doors closed. Call 105 to report a power cut. See our <a href="power-cut.html">power cut guide</a> and <a href="food-storage.html">food storage guide</a>.</p>
+{sources([("UKHSA (GOV.UK): Beat the heat: staying safe in hot weather",BTH),("UKHSA (GOV.UK): Weather-Health Alerting System","https://www.gov.uk/guidance/weather-health-alerting-system"),("Met Office: Heat-Health Alert service","https://weather.metoffice.gov.uk/warnings-and-advice/seasonal-advice/heat-health-alert-service"),("Met Office: Weather warnings guide","https://weather.metoffice.gov.uk/guides/warnings"),("Met Office: Why the Met Office is launching a new extreme heat warning (2021)","https://www.metoffice.gov.uk/blog/2021/why-the-met-office-is-launching-a-new-extreme-heat-warning"),("Met Office: UK weather warnings","https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings"),("UKHSA data dashboard: Weather-health alerts","https://ukhsa-dashboard.data.gov.uk/weather-health-alerts"),("NHS: Heat exhaustion and heatstroke","https://www.nhs.uk/conditions/heat-exhaustion-heatstroke/"),("NHS: Heatwave: how to cope in hot weather","https://www.nhs.uk/live-well/seasonal-health/heatwave-how-to-cope-in-hot-weather/"),("St John Ambulance: Heatstroke","https://www.sja.org.uk/first-aid-advice/heatstroke/"),("GOV.UK Prepare: Hot weather",P+"/be-informed-about-hazards/hot-weather/"),("RNLI: Cold water shock","https://rnli.org/safety/know-the-risks/cold-water-shock"),("RSPCA: Heatstroke in dogs","https://www.rspca.org.uk/adviceandwelfare/pets/dogs/health/heatstroke"),("Dogs Trust: Hot weather","https://www.dogstrust.org.uk/dog-advice/life-with-your-dog/seasonal/hot-weather"),("NFCC: Wildfire prevention advice","https://nfcc.org.uk/our-services/campaigns/wildfire-aware/wildfire-prevention-advice/"),("GOV.UK: Statutory guidelines on disposable BBQs","https://www.gov.uk/guidance/statutory-guidelines-on-disposable-bbqs"),("Ofwat: Hosepipe bans","https://www.ofwat.gov.uk/hose-pipe-bans-what-are-they-and-what-they-mean-for-the-public/"),("UKHSA (GOV.UK): Beat the heat: keep cool at home checklist",BTHC),("CIBSE: How to keep your space cool during a heatwave",CIBSE),("GOV.UK: Overheating: Approved Document O","https://www.gov.uk/government/publications/overheating-approved-document-o"),("Essex & Suffolk Water: Temporary Use Ban (hosepipe ban)","https://www.eswater.co.uk/temporaryuseban")])}
+''',"Extreme heat in the UK: Met Office warnings, UKHSA Heat-Health Alerts, keeping cool, heatstroke, pets, cold water shock, wildfires and hosepipe bans.")
+
 page("guides/power-cut.html","Power cut: what to do",f'''
 <h1>Power cut: what to do</h1>
 <p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
@@ -611,27 +759,66 @@ page("guides/power-cut.html","Power cut: what to do",f'''
 
 page("guides/water-outage.html","No water: what to do",f'''
 <h1>No water: what to do</h1>
-<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
-<p class="lead">Water cuts are usually fixed quickly. Your water company is the best place for news if it lasts longer.</p>
-<h2>Get ready now</h2>
+<p class="meta">Last checked: <time datetime="2026-10-16">{CHECKED}</time></p>
+<p class="lead">Most water cuts are fixed quickly. Longer cuts are rare, but they do happen, so it is worth a little planning. Your water company is the best place for news.</p>
+<div class="card"><h2 id="how-likely">How likely is a long water cut?</h2>
+<p>The UK government’s <a href="{NRR}">National Risk Register 2026</a> looks at a rare “reasonable worst case”, not an everyday water cut. Its worst case for <strong>“Water infrastructure failure or loss of drinking water”</strong> is <strong>likelihood 4 (5–25%)</strong> and <strong>impact 5 (Catastrophic)</strong>. Likelihood here means the chance of this happening at least once in 5 years.</p>
+<p>In the government’s words, it imagines “the loss of piped drinking water and impact to wastewater services for over one million people”. It says “residents would likely have to leave the area, and some may require evacuation”, and that “repair of the infrastructure could take months”.</p>
+<p>The register also says “all risks in the NSRA are relatively low likelihood events”. You do not need to store months of water. The steps below help with a short cut, and help you cope well if you are ever asked to leave.</p></div>
+<h2 id="get-ready">Get ready now</h2>
 <ul class="tick">
-<li>Keep some sealed bottled water. GOV.UK says at least 2.5 to 3 litres per person per day to drink, and 10 litres per person per day to be more comfortable. Use our <a href="../calculator.html">calculator</a> to work out your amount.</li>
-<li>GOV.UK suggests buying bottled water rather than filling your own containers.</li>
-<li>Find out who your water company is. <a href="https://www.water.org.uk/customers/find-your-supplier">Water UK: find your supplier</a>.</li>
-<li>Know where your stop tap is, so you can turn the water off if a pipe leaks.</li>
-<li>If someone needs extra water for health reasons, or uses medical equipment that needs water, join your water company’s <a href="priority-services-register.html">Priority Services Register</a> and talk to their care team about a plan.</li>
-<li>Rain butt water is fine for flushing the toilet, but do not drink it.</li>
+<li><strong>Keep some sealed bottled water.</strong> GOV.UK says at least 2.5 to 3 litres per person per day to drink, and 10 litres per person per day to be more comfortable. Use our <a href="../calculator.html">calculator</a> to work out your amount. GOV.UK says “there is no standard figure” for how many days to store, because emergencies vary.</li>
+<li><strong>Buy sealed bottled water</strong> rather than filling your own containers. GOV.UK says bottled water is sealed in a food-grade bottle, so it stays safe for longer.</li>
+<li><strong>Store it well and use it in turn.</strong> Bristol Water advises keeping bottled water in a cool, shaded place away from direct sunlight. Do not keep it somewhere warm, like a car: the water can taste odd or turn green, and then you should not drink it. Check the date on the bottles, use the oldest first, and replace them as you go.</li>
+<li><strong>Find out who your water company is.</strong> Use <a href="https://www.water.org.uk/customers/find-your-supplier">Water UK: find your supplier</a>, then follow it on social media or sign up for its text updates.</li>
+<li><strong>Join your water company’s Priority Services Register</strong> if you or someone you care for needs extra help. Water companies use it to deliver bottled water to people who can’t collect it. See our <a href="priority-services-register.html">Priority Services Register guide</a>.</li>
+<li>If someone uses <strong>medical equipment that needs water</strong> (for example home dialysis), GOV.UK says to talk to your care team about a plan for a water cut.</li>
+<li><strong>Keep handy supplies.</strong> CCW, the water consumer body, suggests hand sanitiser, wet wipes, waterless soap, dry shampoo and disposable plates, cups and cutlery.</li>
+<li>If you have space, a <strong>water butt</strong> gives you water for flushing the toilet. Do not drink it (see our <a href="rainwater.html">rainwater guide</a>).</li>
+<li>Know where your <strong>stop tap</strong> is, so you can turn the water off if a pipe leaks.</li>
+<li>Keep a <strong>bag ready in case you need to leave</strong>, with medicines and important documents (see our <a href="../plan.html">household plan</a>).</li>
 </ul>
-<h2>During a water outage</h2>
+<h2 id="during">During a water cut</h2>
 <ul class="tick">
-<li>Check your water company’s website or social media for updates and where to collect bottled water.</li>
-<li>If you are on the Priority Services Register, your water company should arrange water for you. If it doesn’t arrive, contact them.</li>
-<li>Save bottled water for drinking, cooking, washing hands and making baby formula.</li>
-<li>Use hand sanitiser and wet wipes to stay clean.</li>
+<li>Check your water company’s website, text updates or social media. Ofwat says your company should tell you where to get another supply and when it expects water to be back.</li>
+<li>Save bottled water for drinking, cooking, washing hands and making baby formula. If you cannot boil water, GOV.UK suggests ready-to-use baby formula.</li>
 <li>Check on neighbours who may struggle to collect water.</li>
 </ul>
-{sources([("GOV.UK Prepare: Water supply interruptions or outages",P+"/be-informed-about-hazards/water-supply-interruptions-or-outages/"),("GOV.UK Prepare: Get prepared for emergencies",P+"/get-prepared-for-emergencies/"),("Water UK: Find your water supplier","https://www.water.org.uk/customers/find-your-supplier"),("Discover Water (water industry information)","https://www.discoverwater.co.uk/"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit")])}
-''',"What to do before and during a water outage in the UK, with GOV.UK water figures.")
+<h2 id="longer">If it lasts longer</h2>
+<h3>Bottled water stations</h3>
+<ul class="tick">
+<li>Ofwat says that if the piped supply fails, water companies must provide at least 10 litres of water per person per day within the first 24 hours, and keep this up until the supply is back. This can be bottled water, a water tanker (bowser) or a standpipe.</li>
+<li>Companies often set up <strong>bottled water stations</strong>. Your water company’s website and social media will say where they are and when they are open.</li>
+<li>If you are on the Priority Services Register, your water company should arrange water for you. If it doesn’t arrive, contact them. If you are not registered but need help, CCW says to contact your water company anyway. Help may be slower than if you were already registered.</li>
+<li>Staff and delivery drivers should carry ID. If you are unsure, CCW says to ask them to wait outside while you call the number on your water bill.</li>
+</ul>
+<h3>Toilets without flushing</h3>
+<ul class="tick">
+<li>While the water is off, your toilet will not refill after you flush it.</li>
+<li>South West Water and Bristol Water advise flushing with water from a water butt or your stored water: fill a bucket and pour it into the bowl.</li>
+<li>Do not flush wet wipes. South West Water says to put them in the bin.</li>
+</ul>
+<h3>Keeping clean</h3>
+<ul class="tick">
+<li>To wash your hands, GOV.UK says to fill a large clean bowl, like a washing-up bowl, with water and add soap or household disinfectant.</li>
+<li>Hand sanitiser, wet wipes and dry shampoo help you stay clean and save water.</li>
+<li>Use disposable plates and cutlery so you don’t need to wash up.</li>
+<li>Soft and fizzy drinks from the cupboard are safe to drink. GOV.UK says not to drink milk or fresh fruit juice that smells off.</li>
+</ul>
+<h3>If you are asked to leave</h3>
+<div class="note call"><p><strong>If the authorities ask you to leave, go.</strong> The National Risk Register says: “It is important for people not to delay evacuating properties, buildings or general locality if asked to by the responding authorities.”</p></div>
+<ul class="tick">
+<li>Follow instructions from your water company, the council and the emergency services. Check for <a href="https://www.gov.uk/alerts">Emergency Alerts</a> on your phone.</li>
+<li>Take your bag, with medicines and important documents, and any pets.</li>
+<li>Before you go, turn off your water at the stop tap.</li>
+</ul>
+<h2 id="after">When the water comes back</h2>
+<ul class="tick">
+<li>It may look cloudy or discoloured. GOV.UK says to run the cold tap nearest your stop tap (often under the kitchen sink) for a while. If it doesn’t clear, contact your water company.</li>
+<li>You may be entitled to compensation. CCW says your water company must consider this after an incident.</li>
+</ul>
+{sources([("Cabinet Office: National Risk Register 2026",NRR),("GOV.UK Prepare: Water supply interruptions or outages",P+"/be-informed-about-hazards/water-supply-interruptions-or-outages/"),("GOV.UK Prepare: Get prepared for emergencies",P+"/get-prepared-for-emergencies/"),("Ofwat: Supply interruptions","https://www.ofwat.gov.uk/households/supply-and-standards/supply-interruptions/"),("CCW: What to expect if a water or sewerage incident affects your home","https://www.ccw.org.uk/advice-and-support/households/water-sewerage-incidents-home/"),("South West Water: Preparing for an incident","https://www.southwestwater.co.uk/household/help-support/in-your-area/preparing-for-an-incident"),("Bristol Water: Bottled water","https://www.bristolwater.co.uk/incident-management/bottled-water"),("Water UK: Find your water supplier","https://www.water.org.uk/customers/find-your-supplier"),("GOV.UK: Emergency Alerts","https://www.gov.uk/alerts"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit")])}
+''',"What to do before, during and after a water cut in the UK, including longer outages, with GOV.UK and Ofwat advice.")
 
 page("guides/gas-heating.html","No gas or heating: what to do",f'''
 <h1>No gas or heating: what to do</h1>
@@ -767,6 +954,299 @@ page("privacy.html","Privacy notice",f'''
 <p class="meta">Last updated: <time datetime="2026-10-15">{CHECKED}</time>.</p>
 ''',"How Home Ready UK uses your information.")
 print("variants built")
+# ---------- NINE NEW GUIDES ----------
+NRRPDF="https://assets.publishing.service.gov.uk/media/6a50d66b1228eb26a4cab76c/National_Risk_Register_2026.pdf"
+SRC_NRR=("Cabinet Office: National Risk Register 2026",NRR)
+RI="Do these now, while things are calm. You can do them bit by bit."
+def ul(items): return '<ul class="tick">'+"".join(f"<li>{i}</li>" for i in items)+"</ul>\n"
+def nrrbox(text): return f'<div class="card"><h2 id="how-likely">What the National Risk Register says</h2>{text}<p class="meta">The <a href="{NRR}">National Risk Register 2026</a> describes rare, national “reasonable worst cases”. In its own words, “all risks in the NSRA are relatively low likelihood events.” Likelihood is the chance of the worst case happening at least once in 5 years (2 years for malicious risks).</p></div>\n'
+def guide(slug,title,lead,body,srcs,desc):
+    page(f"guides/{slug}.html",title,f'''
+<h1>{title}</h1>
+<p class="meta">Last checked: <time datetime="2026-10-16">{CHECKED}</time></p>
+<p class="lead">{lead}</p>
+{body}
+{sources(srcs)}
+''',desc)
+
+# 1 Leaving home quickly
+guide("leaving-home","Leaving home quickly, or staying inside safely",
+"Sometimes the safest thing is to leave your home. Other times you will be told to go indoors and stay there. A little planning makes both much easier.",
+nrrbox("<p>Evacuation comes up across many risks. For example, the register’s worst case for loss of water says “residents would likely have to leave the area”. It advises: “It is important for people not to delay evacuating properties, buildings or general locality if asked to by the responding authorities.”</p><p>It also says people may be asked to “‘go in, stay in and tune in’ to local radio stations or check official sources of information online”.</p>")+
+ready("Get ready now",[
+"<strong>Pack a grab bag.</strong> GOV.UK Prepare suggests keeping things you would need if asked to leave quickly in a spare bag. The British Red Cross suggests: medicines, a phone charger or power bank, cash and bank cards, a paper list of contact numbers, spare glasses, weather-appropriate clothing, water and snacks, and baby and pet supplies.",
+"<strong>Keep documents together.</strong> GOV.UK Prepare suggests keeping your plan with passports, birth certificates and insurance papers, so they are easy to gather if you are asked to evacuate. The Red Cross suggests copies in a waterproof bag.",
+"<strong>Keep enough medicine</strong> for several days, plus paper instructions and charged back-up batteries for any medical equipment (GOV.UK Prepare).",
+"<strong>Know how to turn off your gas, electricity and water.</strong> GOV.UK Prepare says you will need to do this if you have to leave your home. Write where they are on your <a href=\"../plan.html\">household plan</a>.",
+"<strong>Agree a meeting place</strong> close to home, in case you can’t get back or phones are down. Ready Scotland says it should have shelter and be accessible for everyone in your household.",
+"<strong>Plan for anyone who can’t leave on their own.</strong> Ready Scotland says you may need extra planning if someone has a disability, a long-term condition or uses medical equipment. See GOV.UK Prepare’s <a href=\""+P+"/get-prepared-for-emergencies/advice-for-disabled-persons-and-carers/\">advice for disabled people and carers</a>.",
+"<strong>Get pets ready.</strong> The RSPCA suggests suitable carriers, a supply of food, and a watertight bag with microchip numbers, vet and vaccination details and a photo of your pet. GOV.UK’s flood plan says many evacuation centres will let you bring your pet.",
+"<strong>Make sure you can get Emergency Alerts</strong> on your mobile phone, and keep a battery or wind-up radio (see our <a href=\"phones-internet-down.html\">phones and internet guide</a>).",
+],RI)+
+'<h2 id="leave">If you are asked to leave</h2>\n'+ul([
+"Go when you are asked. Do not wait to see what happens. The register says delaying “may put individuals’ own lives at risk, as well as putting emergency responders in danger”.",
+"Take your grab bag, medicines and pets. Turn off gas, electricity and water if it is safe and you have time.",
+"Follow official advice on where to go: the council, emergency services, local radio and <a href=\"https://www.gov.uk/alerts\">Emergency Alerts</a>.",
+"<strong>If your home is on fire, get out and take nothing.</strong> GOV.UK Prepare says you should not take anything with you. See our <a href=\"fire-and-carbon-monoxide.html\">fire guide</a>.",
+])+
+'<h2 id="stay-in">If you are told to go in, stay in, tune in</h2>\n<p>This is the usual advice for a chemical, smoke or radiation incident nearby.</p>\n'+ul([
+"<strong>Go in.</strong> UKHSA says to go into any building as soon as possible (not the one where the incident is). A car does not protect you well enough.",
+"<strong>Stay in.</strong> Close doors and windows. Turn off fans and air conditioning, and close vents, including trickle vents in windows, if you can (UKHSA).",
+"<strong>Tune in.</strong> Follow local radio, TV, official websites and social media, and Emergency Alerts. You may need to stay in for some hours. For a radiation emergency, GOV.UK Prepare says it could be one to two days.",
+"If you need your regular medicine, UKHSA says to contact NHS 111 for advice rather than leaving the building.",
+"If you think a chemical has got on you, GOV.UK Prepare says: remove yourself from the area, remove outer clothing (try not to pull it over your head), and remove the substance from your skin with a dry absorbent material.",
+])+
+'<h2 id="after">Afterwards</h2>\n'+ul([
+"Only go home when the authorities say it is safe.",
+"Restock your grab bag and replace any medicines you used.",
+]),
+[SRC_NRR,("GOV.UK Prepare: Get prepared for emergencies",P+"/get-prepared-for-emergencies/"),("GOV.UK Prepare: Advice for disabled persons and carers",P+"/get-prepared-for-emergencies/advice-for-disabled-persons-and-carers/"),("GOV.UK Prepare: Hazardous substance and radiation exposure",P+"/be-informed-about-hazards/hazardous-materials-incident/"),("UKHSA (GOV.UK): What to do in a chemical emergency","https://www.gov.uk/government/publications/chemical-emergencies-information-for-the-public/what-to-do-in-a-chemical-emergency"),("Ready Scotland: Make an emergency plan","https://ready.campaign.gov.scot/emergency-plan"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit"),("RSPCA: Floods and pets","https://www.rspca.org.uk/adviceandwelfare/seasonal/floods"),("GOV.UK: Personal flood plan","https://www.gov.uk/government/publications/personal-flood-plan/personal-flood-plan"),("GOV.UK: Emergency Alerts","https://www.gov.uk/alerts")],
+"How to get ready to leave home quickly in the UK, pack a grab bag, plan for pets, and what to do if told to go in, stay in, tune in.")
+
+# 2 Fire and CO
+guide("fire-and-carbon-monoxide","Fire and carbon monoxide safety at home",
+"Most home fires start by accident, and carbon monoxide can’t be seen or smelt. Working alarms and a simple escape plan protect everyone.",
+'<div class="note call"><p><strong>If there is a fire: get out, stay out, call 999.</strong> Do not try to tackle it yourself. <strong>If you think a gas appliance is leaking carbon monoxide, call 0800 111 999</strong> (free, 24 hours) and go outside.</p></div>\n'+
+ready("Get ready now",[
+"<strong>Fit smoke alarms on every floor</strong> and test them at least once a month. GOV.UK Prepare says you are 11 times more likely to die in a fire if you have no working smoke alarms. In Scotland, the law on heat and smoke alarms changed in 2022.",
+"<strong>Fit a carbon monoxide alarm</strong> that makes a loud sound. The NHS says to have one in each room with an appliance that burns gas, oil, coal or wood.",
+"<strong>Get appliances serviced.</strong> The NHS says to have boilers, heaters and cookers serviced regularly by a qualified, registered engineer, and to keep chimneys and flues clean.",
+"<strong>Plan and practise your escape route</strong> so everyone knows what to do. Keep exits clear and keep door and window keys where everyone can find them (GOV.UK Prepare).",
+"<strong>Do a free home fire safety check.</strong> Use the <a href=\"https://www.ohfsc.co.uk/\">online home fire safety check</a> or contact your local fire service. In Northern Ireland, ask NIFRS for a free Home Fire Safety Check.",
+"<strong>Charge safely.</strong> Follow the maker’s instructions for phones, laptops, e-bikes and e-scooters, use a compatible charger, and don’t charge them on your escape route (GOV.UK Prepare).",
+"<strong>Keep heaters clear</strong> of curtains and furniture, and never use them to dry clothes. Use torches rather than candles in a power cut.",
+"Teach children what the smoke alarm sounds like and how to “stop, drop and roll” (GOV.UK Prepare).",
+],RI)+
+'<h2 id="bedtime">A quick bedtime check</h2>\n<p>GOV.UK Prepare says you are more at risk from fire while asleep. Before bed:</p>\n'+ul([
+"close inside doors",
+"turn off and unplug appliances unless they are meant to stay on, like the freezer",
+"check the cooker is off, and don’t leave the washing machine or dryer running",
+"put candles and cigarettes out properly",
+])+
+'<h2 id="fire">If there is a fire</h2>\n'+ul([
+"Get everyone out as soon as possible. Do not assume everyone has heard the alarm. Some children may not wake to it.",
+"Don’t stop to investigate or pick up valuables. If there is smoke, keep low where the air is clearer.",
+"Check doors before opening them. If a door is warm, don’t open it. Close doors behind you as you leave.",
+"Call 999 once you are out, and alert neighbours if they are close by.",
+"<strong>If you can’t get out:</strong> get everyone into one room, ideally with a window and a phone. Put bedding around the bottom of the door. Call 999, then open the window and shout “HELP FIRE”.",
+"If clothes catch fire: stop, drop and roll, and smother the flames with a heavy coat or blanket.",
+])+
+'<h2 id="co">Carbon monoxide</h2>\n<p>The NHS says symptoms include a headache, dizziness, feeling sick, feeling weak, tiredness and confusion, chest or muscle pain, and shortness of breath. They may get better when you go outside. The HSE says warning signs include yellow or orange flames instead of blue, soot or staining around appliances, and pilot lights that keep going out.</p>\n'+ul([
+"If you think there is carbon monoxide, stop using the appliance, go outside, and get medical advice. Don’t go back in until you have advice (NHS).",
+"Call NHS 111 if you think you have symptoms. <strong>Call 999</strong> if someone is struggling to breathe, suddenly confused, unconscious, weak, or has chest or muscle pain. Do not drive yourself to A&amp;E.",
+"Never use a barbecue or camping stove indoors, and never run engines in an enclosed space like a garage (NHS).",
+])+
+'<h2 id="after">After a fire</h2>\n'+ul([
+"The fire service will tell you whether it is safe to go back in, and give you an incident number. The British Red Cross says you will need it for insurance.",
+"Call your insurer as soon as you can. If you rent, tell your landlord. If you can’t stay at home and aren’t insured, contact your local council.",
+"Check with a pharmacist before using any medicine that was exposed to heat.",
+]),
+[("GOV.UK Prepare: Fire in the home",P+"/be-informed-about-hazards/domestic-fire/"),("GOV.UK: Fire Kills","https://www.gov.uk/firekills"),("Online home fire safety check","https://www.ohfsc.co.uk/"),("Scottish Fire and Rescue Service: At home","https://www.firescotland.gov.uk/at-home/"),("nidirect: Fire safety and prevention","https://www.nidirect.gov.uk/articles/fire-safety-and-prevention"),("NHS: Carbon monoxide poisoning","https://www.nhs.uk/conditions/carbon-monoxide-poisoning/"),("HSE: Carbon monoxide awareness","https://www.hse.gov.uk/gas/domestic/co.htm"),("British Red Cross: After a house fire","https://www.redcross.org.uk/get-help/prepare-for-emergencies/after-house-fire")],
+"Smoke alarms, carbon monoxide alarms, a fire escape plan and what to do if there is a fire or CO leak at home, from GOV.UK and the NHS.")
+
+# 3 Phones and internet down
+guide("phones-internet-down","Staying in touch when phones and the internet are down",
+"Phone and internet outages are usually short and local. But storms and power cuts can sometimes take them out for days, so it helps to have a back-up plan.",
+nrrbox("<p>The register’s worst case for <strong>“Simultaneous loss of all fixed and mobile forms of communication”</strong> (likelihood 3, 1–5%; impact 3, Moderate) imagines one region losing all connections, “with most fixed‑line connections remaining offline for several days due to a lack of power at the customer premises and damage to overhead cables.”</p><p>New risks in 2026 include <strong>“Digital resilience failure”</strong> (likelihood 4, 5–25%; impact 4, Significant), such as “a faulty software update that crashes critical servers”, based on the 2024 CrowdStrike outage.</p><p><strong>Severe space weather</strong> (likelihood 4, 5–25%; impact 4, Significant) could last “for 1‑2 weeks”, with “regional power disruptions, loss or disruption of Global Navigation Satellite Systems (for example, Global Positioning System (GPS)) and some telecommunications”. The steps on this page and in our <a href=\"power-cut.html\">power cut guide</a> help with all of these.</p>")+
+ready("Get ready now",[
+"<strong>Keep a battery or wind-up FM radio</strong> and spare batteries. GOV.UK Prepare says updates may be given on the radio during an outage.",
+"<strong>Write important numbers on paper</strong>: family, neighbours, GP, utilities. Use our <a href=\"../plan.html\">household plan</a>.",
+"<strong>Agree a meeting point</strong> with family in case you can’t reach each other. Choose somewhere easy to find and open to the public.",
+"<strong>Keep a power bank charged</strong> for each phone.",
+"<strong>Still on an old analogue landline?</strong> GOV.UK Prepare says the analogue network is being upgraded to digital and to contact your landline provider. West Yorkshire Prepared says the switchover is expected to finish by January 2027. Digital landlines need power to work.",
+"<strong>Telecare and personal alarm users:</strong> call your landline provider. Digital Phone Switchover says the change could stop telecare alarms working. GOV.UK Prepare says if you are a vulnerable customer, such as a telecare user, your provider must give you a free back-up battery unit, so your landline works for at least an hour in a power cut.",
+"<strong>Tell your provider</strong> if you need extra support. GOV.UK Prepare says this can mean priority fault repair and extra help during outages.",
+"<strong>Check how medical devices behave offline.</strong> Ask the maker how a personal alarm or diabetes sensor would work if mobile or broadband is lost.",
+"<strong>Download or print maps.</strong> GOV.UK Prepare says GPS may still work with no signal, but map apps need maps downloaded in advance.",
+"<strong>Agree a back-up plan with anyone vulnerable</strong>, for example that you or a neighbour will visit in person if you can’t call.",
+],RI)+
+'<h2 id="during">During an outage</h2>\n'+ul([
+"<strong>You can still call 999 from a mobile.</strong> GOV.UK Prepare says emergency calls automatically roam onto any available network, and the 999 system is designed to keep running in power cuts.",
+"If your mobile network is down but your Wi-Fi works, try Wi-Fi Calling.",
+"Use your phone sparingly to save battery. Messages may work when calls don’t. Moving a short distance can help, and public Wi-Fi may still work.",
+"Check your provider’s status page or app. Ofcom says to report a fault to your provider if it isn’t listed, and tell them if you rely on the connection for telecare or health devices.",
+"Check on neighbours, especially anyone who lives alone.",
+])+
+'<h2 id="after">Afterwards</h2>\n'+ul([
+"Recharge power banks and replace radio batteries.",
+"Ofcom says you may be entitled to compensation for a loss of service. Ask your provider.",
+]),
+[SRC_NRR,("GOV.UK Prepare: Phone and broadband outages",P+"/be-informed-about-hazards/phone-broadband-outages/"),("GOV.UK Prepare: Alerts",P+"/get-prepared-for-emergencies/alerts/"),("GOV.UK: Emergency Alerts","https://www.gov.uk/alerts"),("Digital Phone Switchover","https://digitalphoneswitchover.com/"),("Ofcom: Broadband and landline faults","https://www.ofcom.org.uk/phones-and-broadband/service-quality/broadband-landline-faults"),("West Yorkshire Prepared: Community Risk Register 2025 (PDF)","https://www.westyorkshireprepared.org.uk/wp-content/uploads/2025/10/3806-Community-Risk-Register-DIGITAL-FINAL-1.pdf"),("Met Office: Space weather","https://www.metoffice.gov.uk/weather/learn-about/space-weather")],
+"How to stay in touch in the UK when mobile, landline and broadband are down, including the digital landline switchover, telecare and space weather.")
+
+# 4 Cards and banking
+guide("cash-and-banking","When cards and banking stop: cash and staying safe online",
+"Card payments, banking apps and cash machines very rarely stop working, but when they do it can be for days. A little cash at home and good online security help.",
+nrrbox("<p>The register’s worst case for <strong>“Technological failure at a systemically important retail bank”</strong> (likelihood 3, 1–5%; impact 3, Moderate) is critical technology out “for at least 2 days”, with customers “unable to view account balances, process payments, use online banking or withdraw cash from ATMs.” It says “The most significant impact would be felt by vulnerable customers with only a single bank account.”</p>")+
+ready("Get ready now",[
+"<strong>Keep a small amount of cash at home.</strong> West Yorkshire Prepared says to keep some “in case cash points and electronic payment systems stop working.” The British Red Cross suggests cash for essentials like food or fuel. Small notes and coins are easiest.",
+"<strong>Secure your email account first</strong>, then your other accounts. GOV.UK Prepare says to use a passkey where you can, or a strong, unique password with 2-step verification.",
+"<strong>Use a password manager</strong>, or your browser’s, to create and store strong passwords (GOV.UK Prepare).",
+"<strong>Turn on automatic updates</strong> for your phone, computer and smart devices (GOV.UK Prepare).",
+"<strong>Back up photos and files</strong>, and know how to restore them (GOV.UK Prepare).",
+"<strong>Save these numbers:</strong> 159 to reach your bank safely, Report Fraud on 0300 123 2040 (Police Scotland: 101).",
+],RI)+
+'<h2 id="during">If payments stop working</h2>\n'+ul([
+"Use your cash for essentials like food, medicine and fuel.",
+"Follow updates from your bank and the news.",
+"<strong>Watch out for scams.</strong> The register says a bank outage would bring “heightened fraud”. Ready Scotland warns criminals may take advantage of emergencies.",
+"Check on anyone who may struggle, such as older neighbours who rely on one account.",
+])+
+'<h2 id="scams">Spotting and reporting scams</h2>\n'+ul([
+"<strong>An unexpected call about money?</strong> Hang up and call <strong>159</strong>. Stop Scams UK says 159 connects you safely to your bank, covers more than 99% of UK current accounts, and cannot be spoofed.",
+"Forward suspicious emails to <strong>report@phishing.gov.uk</strong> and suspicious texts to <strong>7726</strong> (NCSC). Don’t click links in them.",
+"If you have lost money or been hacked, report it to <a href=\"https://www.reportfraud.police.uk/\">Report Fraud</a> or call 0300 123 2040 (England, Wales and Northern Ireland). In Scotland, call Police Scotland on 101. Tell your bank straight away.",
+]),
+[SRC_NRR,("GOV.UK Prepare: Cyber security",P+"/be-informed-about-hazards/cyber/"),("NCSC: Cyber security advice for you and your family","https://www.ncsc.gov.uk/section/advice-guidance/you-your-family"),("NCSC: Report a scam email","https://www.ncsc.gov.uk/collection/phishing-scams/report-scam-email"),("NCSC: Report a scam text","https://www.ncsc.gov.uk/collection/phishing-scams/report-scam-text-message"),("Stop Scams UK: 159","https://stopscamsuk.org.uk/159"),("Report Fraud","https://www.reportfraud.police.uk/"),("West Yorkshire Prepared: Community Risk Register 2025 (PDF)","https://www.westyorkshireprepared.org.uk/wp-content/uploads/2025/10/3806-Community-Risk-Register-DIGITAL-FINAL-1.pdf"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit"),("Ready Scotland: Make an emergency plan","https://ready.campaign.gov.scot/emergency-plan")],
+"Why to keep some cash at home, how to secure your accounts, and how to spot and report scams if UK card payments or banking stop.")
+
+# 5 Storms
+guide("storms","Storms and high winds",
+"Storms hit the UK most years, mainly in autumn and winter. Simple steps before a storm keep you safer and cut the damage.",
+nrrbox("<p>The register rates <strong>Storms</strong> at likelihood 4 (5–25%) and impact 3 (Moderate). Its worst case is “storm force winds affecting multiple regions of the UK”, with “gusts in excess of 85 mph”. It says disruption to power, communications and transport “could last for 1‑4 days and for more than 5 days in remote rural locations.”</p>")+
+ready("Get ready now",[
+"<strong>Get weather warnings.</strong> Check the <a href=\"https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings\">Met Office warnings</a> or use the Met Office app, where you can set alerts for your area. GOV.UK Prepare says to pay extra attention when a storm is named.",
+"<strong>Check your roof, chimney and gutters.</strong> The British Red Cross suggests checking for loose tiles, aerials and satellite dishes, having a professional check chimney stacks, and clearing gutters.",
+"<strong>Check fences, gates and trees.</strong> Make sure fences and gates are in good condition, and deal with loose or overhanging branches (Red Cross).",
+"<strong>Know who your power provider is</strong> and that you can call 105 in a power cut. See our <a href=\"power-cut.html\">power cut guide</a>.",
+"<strong>Have a torch, radio and power bank ready</strong>, and a paper list of numbers.",
+],RI)+
+'<h2 id="forecast">When a storm is forecast</h2>\n'+ul([
+"Secure or bring in loose things: ladders, trampolines, garden furniture, toys and bins (GOV.UK Prepare).",
+"Close and fasten doors and windows, especially on the side facing the wind, and garage doors. Close and bolt the loft hatch.",
+"Park cars in a garage, or away from buildings, trees, walls and fences.",
+"If chimney stacks are tall or in poor condition, move beds away from the area directly below them.",
+"Charge phones, power banks and back-up batteries for medical equipment.",
+"Check whether schools are closing, and limit travel. Follow any ‘Do Not Travel’ advice.",
+"Check on anyone who might need help.",
+])+
+'<h2 id="during">During the storm</h2>\n'+ul([
+"Stay inside if you can. Keep away from windows. Open inside doors only as needed, and close them behind you.",
+"If you must go out, don’t walk or shelter near buildings, walls, fences or trees. Use the door on the sheltered side.",
+"Do not go out to repair damage while the storm is still going.",
+"<strong>Keep well away from fallen power lines.</strong> GOV.UK Prepare says high-voltage electricity can jump gaps with no warning.",
+"If you must drive, take care on bridges and high, open roads, and watch for side winds.",
+])+
+'<h2 id="after">After the storm</h2>\n'+ul([
+"Don’t touch cables that have been blown down or are still hanging.",
+"Don’t walk too close to walls, buildings and trees, as they may have been weakened.",
+"Check on vulnerable neighbours and relatives and help them arrange repairs.",
+"Storms can also cause flooding and water cuts. See our <a href=\"flooding.html\">flooding</a> and <a href=\"water-outage.html\">no water</a> guides.",
+]),
+[SRC_NRR,("GOV.UK Prepare: Storms",P+"/be-informed-about-hazards/storms/"),("Ready Scotland: Storms and high winds","https://ready.campaign.gov.scot/storms-wind"),("British Red Cross: Storms and thunderstorms","https://www.redcross.org.uk/get-help/prepare-for-emergencies/support-during-a-storm"),("Met Office: UK weather warnings","https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings")],
+"How to prepare your home for storms and high winds in the UK, and what to do during and after, from GOV.UK Prepare and the Met Office.")
+
+# 6 Illness at home
+guide("illness-at-home","Illness at home: flu, norovirus and pandemics",
+"Winter bugs are common, and most people get better at home. The same simple habits also help if a bigger outbreak or pandemic ever happens.",
+nrrbox("<p>The register rates <strong>Pandemic</strong> at likelihood 4 (5–25%) and impact 5 (Catastrophic), one of its highest-scoring risks. Its worst case is “an unmitigated pandemic”, with a response stage “at least 9 months and potentially, significantly longer”. An outbreak of an emerging infectious disease is rated likelihood 4, impact 4 (Significant).</p>")+
+ready("Get ready now",[
+"<strong>Keep up to date with vaccines</strong>, including the flu vaccine if you are offered it. GOV.UK Prepare says vaccinations are the most effective way to prevent many infectious diseases.",
+"<strong>Keep a small sick-day kit</strong>: paracetamol or ibuprofen, a thermometer, tissues, soap, and oral rehydration sachets (the NHS says a pharmacist may recommend these for diarrhoea and vomiting).",
+"<strong>Keep enough of your regular medicines</strong> to last several days (GOV.UK Prepare).",
+"<strong>Keep some easy food and drinks</strong> in the cupboard. See our <a href=\"food-storage.html\">food storage guide</a>.",
+"<strong>Agree who could help</strong> with shopping, medicines or pets if your household is ill.",
+"Take any unused antibiotics back to a pharmacy. GOV.UK Prepare says don’t save them for later or share them.",
+],RI)+
+'<h2 id="spread">Stop it spreading</h2>\n'+ul([
+"Wash your hands with soap and water for at least 20 seconds, especially after the toilet and before preparing food. <strong>Hand gel does not kill norovirus</strong> (NHS).",
+"Cover coughs and sneezes with a tissue, then bin it. Clean things people touch a lot, like door handles, taps and flush handles.",
+"Let fresh air in.",
+"If you are unwell, try to stay at home and avoid contact with others. With norovirus, the NHS says stay off school or work until you have not been sick or had diarrhoea for 2 days, and don’t visit hospitals or care homes.",
+"Wash clothes and bedding with vomit or poo on them separately, on a 60°C wash.",
+])+
+'<h2 id="care">Looking after yourself at home</h2>\n'+ul([
+"<strong>Flu:</strong> rest and sleep, drink plenty of water, and take paracetamol or ibuprofen if needed. Don’t give aspirin to under-16s. Antibiotics do not work for flu.",
+"<strong>Norovirus:</strong> drink lots of fluids, in small sips if you feel sick. Avoid fruit juice and fizzy drinks. It usually gets better in 2 to 3 days.",
+"<strong>Get help from NHS 111 or your GP</strong> if you are worried about a baby or child, are pregnant, have a long-term condition or weak immune system, or flu symptoms don’t improve after 7 days.",
+"<strong>Call 999</strong> if someone has severe difficulty breathing or starts coughing up blood.",
+])+
+'<h2 id="outbreak">In a bigger outbreak</h2>\n'+ul([
+"Follow official advice from GOV.UK and the NHS. Advice will depend on the illness.",
+"Check on neighbours and relatives by phone, and offer to drop off shopping or medicine.",
+"Shop normally. Our food storage guide helps you build a small store over time, so there’s no need to stock up in a hurry.",
+]),
+[SRC_NRR,("GOV.UK Prepare: Infectious disease outbreaks",P+"/be-informed-about-hazards/health-infectious-disease-outbreaks/"),("GOV.UK Prepare: Antimicrobial resistance",P+"/be-informed-about-hazards/health-antimicrobial-resistance/"),("NHS: Flu","https://www.nhs.uk/conditions/flu/"),("NHS: Norovirus","https://www.nhs.uk/conditions/norovirus/"),("nidirect: Public health emergencies","https://www.nidirect.gov.uk/information-and-services/advice-specific-emergencies/public-health-emergencies")],
+"How to prevent and cope with flu, norovirus and other illness at home in the UK, and how to prepare for a bigger outbreak, from the NHS and GOV.UK.")
+
+# 7 Hospital back-up plan
+guide("hospital-backup-plan","If you’re suddenly in hospital: a back-up plan for carers",
+"If you look after someone, or have children or pets who rely on you, think now about who would step in if you were suddenly ill or had an accident.",
+ready("Get ready now",[
+"<strong>Choose a back-up person</strong>, such as a relative, friend or neighbour, who could step in for a few hours while proper arrangements are made (NHS).",
+"<strong>Make sure they can get in.</strong> The NHS says they should have door keys or know the code to a key safe, and know what care is needed.",
+"<strong>Write care notes</strong> and leave them somewhere obvious. Carers UK suggests including: the person’s name and address, who to contact, their medicines and where they are kept, allergies, GP and pharmacy, any treatment, care services, continence products, mobility aids, and anything others need to know about behaviour.",
+"<strong>Share the plan.</strong> Talk it through with the person you care for and your emergency contacts, and give them a copy or tell them where it is (Carers UK). Review it regularly.",
+"<strong>Ask for a carer’s assessment.</strong> The NHS says to contact adult social services at your local council. It can cover someone taking over so you can have a break.",
+"<strong>Find the council’s out-of-hours team.</strong> Carers UK says councils have an emergency duty team you can contact when the office is closed. In Northern Ireland, use your Health and Social Care Trust.",
+"<strong>Make your information easy to find.</strong> If appropriate, GOV.UK Prepare suggests wearing medical alert tags or bracelets and adding medical information to your phone.",
+"<strong>Include pets and children</strong> in the plan: who would feed and walk pets, or collect children from school.",
+"Use the <a href=\"https://www.carersuk.org/help-and-advice/practical-support/planning-for-emergencies/\">Carers UK</a> planning guide to build your plan, and add your back-up person to our <a href=\"../plan.html\">household plan</a>.",
+],RI)+
+'<h2 id="during">If it happens</h2>\n'+ul([
+"Tell hospital staff straight away that you are a carer and someone is relying on you. The NHS says you’ll be asked for an emergency contact when you are admitted.",
+"Call your back-up person, or ask someone to call them for you.",
+"If no one can help, call the council’s adult social services or emergency duty team. If anyone is at immediate risk, call 999 (Carers UK).",
+"For health advice for yourself or the person you look after, call NHS 111.",
+])+
+'<h2 id="after">Afterwards</h2>\n'+ul([
+"Update your plan with anything you learned.",
+"Talk to the council about extra support, such as respite care, if you need it.",
+"If you need to talk, Carers UK points to Samaritans, free on 116 123, at any time.",
+]),
+[("GOV.UK Prepare: Advice for disabled persons and carers",P+"/get-prepared-for-emergencies/advice-for-disabled-persons-and-carers/"),("NHS: Carers’ breaks and respite care","https://www.nhs.uk/social-care-and-support/support-and-benefits-for-carers/carer-breaks-and-respite-care/"),("NHS: Carer’s assessments","https://www.nhs.uk/social-care-and-support/support-and-benefits-for-carers/carer-assessments/"),("NHS: Going into hospital as a patient","https://www.nhs.uk/nhs-services/hospitals/going-into-hospital/going-into-hospital-as-a-patient/"),("Carers UK: Planning for emergencies","https://www.carersuk.org/help-and-advice/practical-support/planning-for-emergencies/")],
+"A simple back-up plan for UK carers: who steps in, care notes, keys and council contacts if you are suddenly in hospital.")
+
+# 8 Fuel
+guide("fuel-and-heating-oil","Fuel shortages and heating oil",
+"Fuel shortages are uncommon and usually short. Homes heated by oil, and people who rely on a car in rural areas, can prepare with a few simple habits.",
+nrrbox("<p>The register’s worst case for <strong>“Insolvency affecting fuel supply”</strong> (likelihood 4, 5–25%; impact 1, Minor) is a fuel company failing, which “could cause regional disruption to the production and supply of refined fuels, impacting road transport, aviation and domestic heating fuel.” It says “Impacts would be greatest during winter months”, and that sudden “adaptive purchasing” (buying more than usual) “could result in temporary fuel shortages.”</p>")+
+ready("Get ready now",[
+"<strong>Check your heating oil level regularly</strong>, and don’t wait until it is nearly empty. Citizens Advice says keep at least a quarter of a tank while you wait for a delivery, or the system could be damaged.",
+"<strong>Order early.</strong> Citizens Advice says oil is usually cheaper in summer and early autumn, and a delivery in a few weeks is usually cheaper than an urgent one.",
+"<strong>Shop around.</strong> Citizens Advice suggests getting at least 3 quotes from members of UKIFDA, the fuel distributors’ trade body.",
+"<strong>Think about an oil club</strong>, where neighbours order together. Your local council may know of one (Citizens Advice).",
+"<strong>Aged 75 or over?</strong> Citizens Advice says your supplier should add you to the Cold Weather Priority scheme, but check you are on it with each supplier.",
+"<strong>Check your tank</strong> for cracks, leaks or rust, keep the area around it clear for deliveries, and get your boiler serviced each year by an OFTEC-registered technician (UKIFDA).",
+"<strong>Have a back-up for warmth</strong>: warm layers, blankets and hot water bottles. See our <a href=\"cold-weather.html\">cold weather guide</a>.",
+],RI)+
+'<h2 id="during">If there is a fuel shortage</h2>\n'+ul([
+"<strong>Buy as you normally would.</strong> The register says buying more than usual can turn a small problem into a temporary shortage.",
+"The government’s fuel plan allows limits on how much fuel you can buy per visit, and priority fuel for emergency services, so everyone can get some.",
+"Never use a barbecue, camping stove or generator indoors for heat. See our <a href=\"fire-and-carbon-monoxide.html\">fire and carbon monoxide guide</a>.",
+])+
+'<h2 id="after">Afterwards</h2>\n'+ul([
+"Top up as normal, rather than filling up in a rush.",
+"If you are struggling with heating costs, Citizens Advice lists help for people who use oil, LPG, coal or wood.",
+]),
+[SRC_NRR,("GOV.UK: Summary of response tools in the National Emergency Plan for Fuel","https://www.gov.uk/government/publications/energy-emergency-plans-priority-fuel-allocation/summary-of-response-tools-in-the-national-emergency-plan-for-fuel"),("Citizens Advice: Help if you use oil, LPG, coal or wood","https://www.citizensadvice.org.uk/consumer/energy/energy-supply/get-help-paying-your-bills/help-with-bills-if-you-use-alternative-fuels/"),("UKIFDA: Winter campaign 2026-27","https://ukifda.org/ukifda-winter-campaign-2026-27/")],
+"How UK households can prepare for fuel shortages and heating oil delays: tank levels, ordering early, oil clubs and the Cold Weather Priority scheme.")
+
+# 9 Run Hide Tell
+guide("run-hide-tell","Terrorism: Run, Hide, Tell",
+"The chance of being caught up in a terrorist attack is low. Knowing three simple words could help keep you and others safe.",
+nrrbox("<p>The register rates <strong>“Terrorist attacks in publicly accessible locations”</strong> at likelihood 5 (more than 25%) and impact 4 (Significant). For malicious risks, likelihood is measured over 2 years. GOV.UK Prepare says: “the chance of being caught up in a terrorist incident remains low”.</p>")+
+'<div class="note call"><p><strong>RUN</strong> to a place of safety. <strong>HIDE</strong> if you can’t run: silence your phone and turn off vibrate. <strong>TELL</strong> the police by calling 999 when it is safe.</p></div>\n'+
+ready("Get ready now",[
+"<strong>Learn Run, Hide, Tell</strong> and talk about it with your family.",
+"<strong>Notice where the exits are</strong> when you are in buildings and on public transport (British Red Cross).",
+"<strong>Save the Anti-Terrorism Hotline: 0800 789 321.</strong> You can also report online at <a href=\"https://act.campaign.gov.uk/\">ACT</a>. In an emergency, always call 999.",
+"<strong>Learn some first aid.</strong> See our <a href=\"first-aid.html\">first aid guide</a>.",
+"<strong>Travelling abroad?</strong> GOV.UK Prepare says check the Foreign Office travel advice for the country first.",
+],RI)+
+'<h2 id="during">If you are caught up in an attack</h2>\n'+ul([
+"<strong>Run</strong> if there is a safe route. Insist others come with you, but don’t let them slow you down. Leave your belongings. Don’t film the incident.",
+"<strong>Hide</strong> if you can’t run. Find cover from gunfire behind solid walls. Stay quiet, silence your phone and turn off vibrate. Lock or barricade yourself in if you can, and stay away from the door.",
+"<strong>Tell</strong> the police on 999 when it is safe. Say what is happening, where, where the attackers are, and describe them. If you can’t speak, listen to the call taker’s instructions.",
+])+
+'<h2 id="after">Afterwards</h2>\n'+ul([
+"If you saw anything useful, tell the police.",
+"You may be in shock without realising it. See a doctor (British Red Cross).",
+"The government-funded Support Hub for victims and survivors of terrorism has a free 24-hour line: 0808 168 9111.",
+]),
+[SRC_NRR,("GOV.UK Prepare: Terrorism",P+"/be-informed-about-hazards/terrorism/"),("ProtectUK: Run Hide Tell","https://www.protectuk.police.uk/advice-and-guidance/response/run-hide-tell"),("ACT: Report suspicious activity","https://act.campaign.gov.uk/"),("British Red Cross: Terrorist attack","https://www.redcross.org.uk/get-help/prepare-for-emergencies/how-to-prepare-in-case-of-a-terrorist-attack")],
+"Run, Hide, Tell: what to do if you are caught up in a terrorist attack in the UK, and how to report suspicious activity.")
+
 open("sitemap.xml","w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{u}</loc><lastmod>{CHECKED_ISO}</lastmod></url>\n" for u in dict.fromkeys(PAGES))+"</urlset>\n")
 open("robots.txt","w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n")
 print("sitemap",len(set(PAGES)))
