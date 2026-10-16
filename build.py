@@ -146,8 +146,8 @@ def plan(path,large):
 plan("plan.html",False); plan("plan-large-print.html",True)
 
 # ---------- GUIDES ----------
-G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely")]
-page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food and rainwater.")
+G=[("power-cut","Power cut"),("water-outage","No water (water outage)"),("gas-heating","No gas or heating"),("priority-services-register","Priority Services Register"),("grow-your-own","Grow some of your own food"),("rainwater","Collecting rainwater safely"),("first-aid","First aid at home")]
+page("guides/index.html","Guides","<h1>Guides</h1><p class=\"lead\">Short, calm guides for when things stop working.</p><ul class=\"tick\">"+"".join(f'<li><a href="{s}.html">{t}</a></li>' for s,t in G)+f"</ul><p class=\"meta\">All guides last checked {CHECKED}.</p>","Short guides: power cut, water outage, gas and heating, Priority Services Register, growing food, rainwater and first aid.")
 
 RHSW="https://www.rhs.org.uk/garden-jobs/water-collecting-storing-and-using"
 page("guides/grow-your-own.html","Grow some of your own food",f'''
@@ -254,6 +254,134 @@ page("guides/rainwater.html","Collecting rainwater safely",f'''
 </ul>
 {sources([("RHS: Collecting, storing and reusing water",RHSW),("RHS: Managing water in your garden","https://www.rhs.org.uk/gardening-for-the-environment/water"),("Drinking Water Inspectorate: Receiving a boil water notice","https://www.dwi.gov.uk/receiving-a-boil-water-notice/"),("Drinking Water Inspectorate: Protecting your private water supply (rainwater harvesting)","https://www.dwi.gov.uk/private-water-supplies/customers-receiving-pws/protecting-your-private-water-supply/"),("South East Water: Boil water and do not drink notices","https://www.southeastwater.co.uk/help/works-and-outages/our-promise-to-you-if-your-water-supply-is-interrupted/"),("UKHSA (GOV.UK): Mosquito control","https://www.gov.uk/government/publications/mosquito-control"),("NHS: Legionnaires’ disease","https://www.nhs.uk/conditions/legionnaires-disease/"),("Water Regs UK: Connecting mains water to other water sources","https://www.waterregsuk.co.uk/topics/all-faqs/can-mains-water-supplies-be-connected-to-installations-also-supplied-by-another-alternative-source-of-water/"),("Water Supply (Water Fittings) Regulations 1999 (legislation.gov.uk)","https://www.legislation.gov.uk/uksi/1999/1148/contents/made"),("GOV.UK Prepare: Water supply interruptions or outages",P+"/be-informed-about-hazards/water-supply-interruptions-or-outages/")])}
 ''',"How to collect rainwater safely in the UK: water butts, safe uses, why it is not drinking water, and keeping it separate from mains.")
+
+page("guides/first-aid.html","First aid at home",f'''
+<h1>First aid at home</h1>
+<p class="meta">Last checked: <time datetime="2026-10-15">{CHECKED}</time></p>
+<p class="lead">A simple first aid kit and a few basic steps can help while you wait for help, especially during a power cut or a cold snap. This page sums up the official advice and links to it in full.</p>
+<div class="note call"><p><strong>This guide does not replace first aid training.</strong> It is a short summary of advice from the NHS, St John Ambulance and the British Red Cross. Always follow the full official page and the instructions of the 999 call handler. If someone is seriously ill or injured, call 999.</p></div>
+
+<h2>Your home first aid kit</h2>
+<p>You can buy a ready-made kit or put one together in a clean, waterproof box, says St John Ambulance. NHS and St John lists include:</p>
+<ul class="tick">
+<li>Plasters in different sizes (waterproof if possible)</li>
+<li>Sterile dressings, including an eye pad</li>
+<li>Roller (crêpe) bandages and a triangular bandage for a sling</li>
+<li>Medical tape, safety pins, scissors and tweezers</li>
+<li>Disposable gloves (latex-free if you can)</li>
+<li>Cleansing wipes or antiseptic, and eyewash</li>
+<li>A thermometer</li>
+<li>A foil (aluminium) blanket, and a face shield for rescue breaths</li>
+</ul>
+<p>NHS advice also suggests a small medicine cabinet for common illnesses, such as painkillers like paracetamol or ibuprofen. Ask your pharmacist what suits your household, as medicines can interact.</p>
+
+<h3>Storing and checking it</h3>
+<ul class="tick">
+<li>Keep medicines out of sight and reach of children. The NHS says a high, lockable cupboard in a cool, dry place is ideal.</li>
+<li>Keep medicines in their original packs with the leaflet, and follow the dose on the pack.</li>
+<li>Check expiry dates regularly. Many sterile kit items have dates too. Replace anything out of date.</li>
+<li>Do not put old medicines in the bin or down the toilet. Take them to a pharmacy to be disposed of safely.</li>
+</ul>
+
+<h3>A kit for the car or a go-bag</h3>
+<p>The British Red Cross suggests keeping a first aid kit in your car, and putting essential medicines, spare glasses and a paper list of emergency numbers in a small bag you can grab and go. See our <a href="../calculator.html">kit calculator</a>.</p>
+
+<h3>A paper list of medicines and allergies</h3>
+<p>Write down each person’s regular medicines (name and dose), any allergies, and their GP details. Keep it on paper at home with your kit. The NHS says paramedics find it helpful if you collect the person’s medicines and tell them about any allergies. Our <a href="../plan.html">printable household plan</a> has space for this. Nothing you write is stored on this website.</p>
+
+<h2>Basic first aid</h2>
+<p>These are short summaries. Tap each link to read the full official steps, with pictures and videos.</p>
+
+<h3>Burns and scalds (including from candles and camping stoves)</h3>
+<ul class="tick">
+<li>Cool the burn under cool running water for 20 minutes, as soon as you can. If there is no running water, the NHS says you can use cool bottled water or a wet towel.</li>
+<li>Remove clothing or jewellery near the burn, but not anything stuck to it.</li>
+<li>Once cooled, lay cling film over it loosely. Do not wrap it round.</li>
+<li>Do not use ice, creams, oils or butter, and do not burst blisters.</li>
+<li>Call 999 or go to A&amp;E if the burn is large or deep, on the face, genitals or bottom, or caused by chemicals or electricity. Call 111 if you are not sure.</li>
+</ul>
+<p>Read more: <a href="https://www.nhs.uk/conditions/burns-and-scalds/">NHS: Burns and scalds</a> · <a href="https://www.sja.org.uk/first-aid-advice/burns-and-scalds/">St John Ambulance: Burns and scalds</a>. The NHS also warns that using camping stoves or barbecues indoors can cause carbon monoxide to build up (see below).</p>
+
+<h3>Cuts and bleeding</h3>
+<ul class="tick">
+<li>Wash your hands and put on gloves if you have them.</li>
+<li>Press firmly on the wound with a dressing or clean folded cloth. If something is stuck in it, do not pull it out. Press either side of it instead.</li>
+<li>Raise an injured arm or leg if you can. If blood comes through, add another pad on top.</li>
+<li>Call 999 if the bleeding will not stop, or blood spurts out.</li>
+<li>For small cuts, clean with water, pat dry and cover with a plaster or dressing.</li>
+</ul>
+<p>Read more: <a href="https://www.nhs.uk/conditions/cuts-and-grazes/">NHS: Cuts and grazes</a> · <a href="https://www.sja.org.uk/first-aid-advice/severe-bleeding/">St John Ambulance: Severe bleeding</a></p>
+
+<h3>Cold and hypothermia</h3>
+<p>Signs include shivering, pale cold skin, slurred speech, slow breathing, tiredness or confusion. A baby may be cold, floppy and unusually quiet. The NHS says to go to A&amp;E or call 999 if you think someone has hypothermia. While you wait:</p>
+<ul class="tick">
+<li>Move them somewhere warm or sheltered. Remove wet clothes and wrap them in blankets, with their head covered.</li>
+<li>If they are fully awake, give a warm non-alcoholic drink and sugary food like chocolate.</li>
+<li>Stay with them. Do not use a hot bath, hot water bottle or heat lamp, do not rub their limbs, and do not give alcohol.</li>
+</ul>
+<p>Read more: <a href="https://www.nhs.uk/conditions/hypothermia/">NHS: Hypothermia</a> · <a href="https://www.sja.org.uk/first-aid-advice/hypothermia/">St John Ambulance: Hypothermia</a> · <a href="https://www.redcross.org.uk/first-aid/learn-first-aid/hypothermia">British Red Cross: Hypothermia</a></p>
+
+<h3>Carbon monoxide</h3>
+<p>You cannot see or smell carbon monoxide. The NHS lists symptoms including headache, dizziness, feeling or being sick, weakness, tiredness and confusion, chest and muscle pain, and shortness of breath. Symptoms may ease when you go outside.</p>
+<ul class="tick">
+<li>Stop using the appliance if you can, and get everyone outside into fresh air.</li>
+<li>Call 111 for advice. Call 999 if someone is struggling to breathe, suddenly confused, unconscious, weak, or has chest or muscle pain.</li>
+<li>Do not go back inside until you have had advice. Never use a barbecue or camping stove indoors.</li>
+</ul>
+<p>Read more: <a href="https://www.nhs.uk/conditions/carbon-monoxide-poisoning/">NHS: Carbon monoxide poisoning</a> · <a href="https://www.sja.org.uk/first-aid-advice/carbon-monoxide-poisoning/">St John Ambulance: Carbon monoxide poisoning</a>. See also our <a href="gas-heating.html">no gas or heating guide</a>.</p>
+
+<h3>Choking (adults)</h3>
+<ul class="tick">
+<li>Ask “Are you choking?” Encourage them to cough.</li>
+<li>If that fails, give up to 5 sharp back blows between the shoulder blades, while they lean forward.</li>
+<li>If that fails, give up to 5 abdominal thrusts.</li>
+<li>If it is still blocked, call 999 and keep repeating back blows and thrusts. If they become unresponsive, start CPR.</li>
+</ul>
+<p>Babies and children need different steps. Read more: <a href="https://www.sja.org.uk/first-aid-advice/choking/">St John Ambulance: Choking</a> · <a href="https://www.sja.org.uk/first-aid-advice/child-choking/">Choking child</a> · <a href="https://www.sja.org.uk/first-aid-advice/baby-choking/">Choking baby</a> · <a href="https://www.redcross.org.uk/first-aid/learn-first-aid/choking">British Red Cross: Choking</a></p>
+
+<h3>Is someone unresponsive?</h3>
+<p>St John Ambulance uses a quick check called DR ABC: Danger, Response, Airway, Breathing, Circulation. First make sure it is safe. Then gently shake their shoulders and ask loudly “Are you OK?” If they do not respond in any way, they are unresponsive. Tilt their head back and lift the chin, then look, listen and feel for normal breathing for no more than 10 seconds. Occasional gasps are not normal breathing.</p>
+<p>Read more: <a href="https://www.sja.org.uk/first-aid-advice/primary-survey/">St John Ambulance: The primary survey (DR ABC)</a></p>
+
+<h3>Not breathing normally: CPR</h3>
+<ul class="tick">
+<li>Call 999 (or get someone else to) and put the phone on speaker. Send a helper for a defibrillator if there is one.</li>
+<li>Push hard and fast in the middle of the chest, at 100 to 120 a minute. The call handler will help you.</li>
+<li>If you are trained, give 2 rescue breaths after every 30 compressions. If not, keep doing chest compressions.</li>
+</ul>
+<p>Read more: <a href="https://www.sja.org.uk/first-aid-advice/cpr/">St John Ambulance: How to do CPR</a> · <a href="https://www.redcross.org.uk/first-aid/learn-first-aid/unresponsive-and-not-breathing">British Red Cross: Unresponsive and not breathing</a></p>
+
+<h3>Unresponsive but breathing: recovery position</h3>
+<p>Roll them onto their side and tilt their head back, so their airway stays open and any vomit can drain. Call 999 and keep checking them until help arrives.</p>
+<p>Read more: <a href="https://www.sja.org.uk/first-aid-advice/recovery-position/">St John Ambulance: Recovery position</a> · <a href="https://www.redcross.org.uk/first-aid/learn-first-aid/unresponsive-and-breathing">British Red Cross: Unresponsive and breathing</a></p>
+
+<h3>Sprains and strains</h3>
+<p>For the first 2 to 3 days, the NHS suggests PRICE: Protect, Rest, Ice (an ice pack or frozen peas in a tea towel, up to 20 minutes every 2 to 3 hours), Compression with a bandage, and Elevate. A pharmacist can advise on painkillers. Get help from 111 if it is very painful, very swollen, or you cannot put weight on it.</p>
+<p>Read more: <a href="https://www.nhs.uk/conditions/sprains-and-strains/">NHS: Sprains and strains</a> · <a href="https://www.redcross.org.uk/first-aid/learn-first-aid/strains-and-sprains">British Red Cross: Strains and sprains</a></p>
+
+<h2>999, 111 or a pharmacist?</h2>
+<ul class="tick">
+<li><strong>999</strong> is for life-threatening emergencies, such as someone not breathing, heavy bleeding that will not stop, or a severe burn. Tell the call handler where you are, what happened and your phone number.</li>
+<li><strong>NHS 111</strong> (call 111 or use <a href="https://111.nhs.uk/">111 online</a>) is for when you need help fast but it is not life-threatening, or you are not sure whether to call 999. Call 111 for a child under 5.</li>
+<li><strong>A pharmacist</strong> can advise on minor illnesses, minor injuries and medicines, with no appointment.</li>
+</ul>
+
+<h3>If you are deaf or cannot speak on the phone</h3>
+<ul class="tick">
+<li><strong>999 BSL:</strong> a free video relay service for deaf British Sign Language users, through the <a href="https://999bsl.co.uk/">999 BSL website or app</a>.</li>
+<li><strong>Relay UK:</strong> call <strong>18000</strong> from the Relay UK app or a textphone to reach 999 through a relay assistant.</li>
+<li><strong>emergencySMS:</strong> you must register first. Text the word <strong>register</strong> to 999, then reply <strong>yes</strong> when asked. In an emergency, text 999 with the service you need, what is happening and exactly where you are. Relay UK says this is slower than a call, so use it only if you have no other option. Wait for a reply before assuming it has been received. See <a href="https://www.relayuk.bt.com/how-to-use-relay-uk/contact-999-using-relay-uk.html">Relay UK: Contact 999</a>.</li>
+</ul>
+
+<h2>Learn first aid for free or at low cost</h2>
+<ul class="tick">
+<li><strong>British Red Cross first aid apps</strong> (free, work without internet): a general app and a baby and child app. See <a href="https://www.redcross.org.uk/first-aid/first-aid-apps">Red Cross first aid apps</a>.</li>
+<li><strong>British Red Cross free workshop for adults</strong>, online or face to face, for community members and groups. Availability is currently reduced. See <a href="https://www.redcross.org.uk/get-involved/teaching-resources/community-education-workshops/first-aid-workshop-for-adults">free first aid workshop</a>.</li>
+<li><strong>British Red Cross public courses</strong> (paid): four-hour courses in first aid for adults, and for babies and children. See <a href="https://www.redcross.org.uk/first-aid/book-a-first-aid-course">Red Cross first aid courses</a>.</li>
+<li><strong>St John Ambulance free awareness sessions</strong> for community groups in England (at least 6 people, no certificate). See <a href="https://www.sja.org.uk/first-aid-awareness-sessions/">St John free sessions</a>. St John’s first aid app has been withdrawn, so use their <a href="https://www.sja.org.uk/first-aid-advice/">first aid advice pages</a> instead.</li>
+</ul>
+{sources([("NHS: Burns and scalds","https://www.nhs.uk/conditions/burns-and-scalds/"),("NHS: Cuts and grazes","https://www.nhs.uk/conditions/cuts-and-grazes/"),("NHS: Hypothermia","https://www.nhs.uk/conditions/hypothermia/"),("NHS: Carbon monoxide poisoning","https://www.nhs.uk/conditions/carbon-monoxide-poisoning/"),("NHS: Sprains and strains","https://www.nhs.uk/conditions/sprains-and-strains/"),("NHS: When to call 999","https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-call-999/"),("NHS: When to use 111","https://www.nhs.uk/nhs-services/urgent-and-emergency-care-services/when-to-use-111/"),("NHS: How pharmacies can help","https://www.nhs.uk/nhs-services/pharmacies/how-pharmacies-can-help/"),("NHS Black Country ICB: Keep a well-stocked medicine cabinet at home","https://blackcountry.icb.nhs.uk/your-health/find-right-service-you/self-care/keep-well-stocked-medicine-cabinet-home"),("St John Ambulance: What to put in a first aid kit","https://shop.sja.org.uk/pages/what-to-put-in-a-first-aid-kit"),("HSE: What to put in your first aid kit (checking expiry dates)","https://www.hse.gov.uk/simple-health-safety/firstaid/what-to-put-in-your-first-aid-kit.htm"),("St John Ambulance: First aid advice","https://www.sja.org.uk/first-aid-advice/"),("St John Ambulance: Primary survey (DR ABC)","https://www.sja.org.uk/first-aid-advice/primary-survey/"),("St John Ambulance: How to do CPR","https://www.sja.org.uk/first-aid-advice/cpr/"),("St John Ambulance: Recovery position","https://www.sja.org.uk/first-aid-advice/recovery-position/"),("St John Ambulance: Choking","https://www.sja.org.uk/first-aid-advice/choking/"),("British Red Cross: Prepare an emergency kit","https://www.redcross.org.uk/get-help/prepare-for-emergencies/prepare-an-emergency-kit"),("British Red Cross: Learn first aid","https://www.redcross.org.uk/first-aid/learn-first-aid"),("Relay UK: Contact 999 using Relay UK","https://www.relayuk.bt.com/how-to-use-relay-uk/contact-999-using-relay-uk.html"),("999 BSL emergency video relay","https://999bsl.co.uk/")])}
+''',"First aid at home in the UK: what to keep in your kit, basic steps for burns, bleeding, cold, carbon monoxide, choking and CPR, and when to call 999 or 111.")
 
 page("guides/power-cut.html","Power cut: what to do",f'''
 <h1>Power cut: what to do</h1>
