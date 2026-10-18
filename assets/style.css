@@ -73,3 +73,8 @@ header.site .indep,header.site .indep a{color:var(--fg)}
 .crumbs a{color:var(--muted)}
 .related h2{margin-top:.5rem}
 @media print{.crumbs,.related{display:none}}
+table.checklist{width:100%;border-collapse:collapse}
+table.checklist td,table.checklist th{border-bottom:1px solid var(--line);padding:.35rem .4rem;vertical-align:top;text-align:left}
+table.checklist td.box{width:2.2rem;font-size:1.4rem;text-align:center}
+table.water{border-collapse:collapse;width:100%}
+table.water th,table.water td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left}
